@@ -1,7 +1,7 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=./node_modules/.bin:$PATH
-export PATH=./vendor/bin:$PATH
+# export PATH=/home/amjerm/node_modules/.bin:$PATH
+# export PATH=./vendor/bin:$PATH
 export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 
 DOCKER_ENV_PATH="/home/amjerm/repos/tsi/docker"

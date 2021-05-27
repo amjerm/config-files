@@ -1,5 +1,5 @@
 " --------
-" VIM-PLUG
+" PLUGINS
 " --------
 
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -9,32 +9,36 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-  Plug 'neoclide/coc.nvim', {'branch': 'release'} " code completion
-  Plug 'tpope/vim-sensible' " sensible standards
-  Plug 'tpope/vim-sleuth'
-  Plug 'tpope/vim-eunuch'
-  Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' } " file tree
-  Plug 'airblade/vim-gitgutter' " git status in gutter
-  Plug 'Xuyuanp/nerdtree-git-plugin'
-  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-  Plug 'sheerun/vim-polyglot'
-  Plug 'preservim/nerdcommenter' " comment shortcuts
-  Plug 'dense-analysis/ale'
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fuzzy finder for files
+  " actions / utilities
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fuzzy finder
   Plug 'junegunn/fzf.vim'
-  Plug 'yggdroot/indentline' " indent line
-  Plug 'APZelos/blamer.nvim'
-  Plug 'mattn/emmet-vim' "emmet
+  Plug 'neoclide/coc.nvim', {'branch': 'release'} " code completion
+  Plug 'tpope/vim-eunuch'
+  Plug 'tpope/vim-sensible' " sensible standards
   Plug 'christoomey/vim-tmux-navigator'
-  
-  "" SYNTAX HIGHLIGHTING
-  " Plug 'yuezk/vim-js'
-  Plug 'HerringtonDarkholme/yats.vim'
-  Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
 
-  "  THEMES
-  " Plug 'ayu-theme/ayu-vim'
+  " theme
   Plug 'morhetz/gruvbox'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+
+  " syntax highlighting / snippets / formatting
+  Plug 'tpope/vim-sleuth'
+  Plug 'yggdroot/indentline' " indent line
+  Plug 'sheerun/vim-polyglot'
+  Plug 'HerringtonDarkholme/yats.vim' " typescript highlighting
+  Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
+  Plug 'mattn/emmet-vim' " emmet
+  Plug 'preservim/nerdcommenter' " comment shortcuts
+
+  " git
+  Plug 'APZelos/blamer.nvim'
+  Plug 'airblade/vim-gitgutter' " git status in gutter
+
+  " nerdtree
+  Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' } " file tree
+  " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
@@ -43,7 +47,6 @@ call plug#end()
 " -----
 
 set termguicolors
-" let ayucolor="dark"
 colorscheme gruvbox
 
 " -------- 
@@ -54,7 +57,7 @@ colorscheme gruvbox
 
 set cursorline
 set expandtab
-set guifont=Fira\ Code:h12
+" set guifont=FiraCode\ Nerd\ Font\ Mono:h12
 set ignorecase
 set nopaste
 set number
@@ -80,29 +83,21 @@ autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_
 " Open the existing NERDTree on each new tab.
 " autocmd BufWinEnter * silent NERDTreeMirror
 
-" Git Blamer
+" GIT BLAMER
 
 let g:blamer_enabled = 1
 let g:blamer_date_format = '%Y-%m-%d %H:%M'
 let g:blamer_relative_time = 1
 
-" NERDCommenter
+" NERDCOMMENTER
 
 let g:NERDCreateDefaultMappings = 1
 let g:NERDDEfaultAligh = 'left'
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDSpaceDelims = 1
 
-" ALE / STANDARDJS
-
-"let g:ale_linters = {'javascript': ['standard']}
-"let g:ale_fixers = {'javascript': ['standard']}
-"let g:ale_lint_on_save = 1
-"let g:ale_fix_on_save = 1
-
 " COC
 
-" require coc extensions
 let g:coc_global_extensions = [
   \ 'coc-go',
   \ 'coc-inline-jest',
@@ -131,11 +126,12 @@ let g:indentLine_first_char = ''
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 0
 
-" ==========+
+" ===========
 " KEYBINDINGS
-" ==========+
+" ===========
 
 " VIM
+
 nnoremap H ^
 nnoremap L g_
 nnoremap <C-t> :tabnew<CR>
@@ -180,23 +176,28 @@ endfunction
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " NERDCOMMENTER
+
 map <C-_> <plug>NERDCommenterToggle
 
 " FZF FUZZYFINDER
+
 nnoremap <C-p> :FZF<CR>
 nnoremap <C-F> :Ag<CR>
 
 " TABS
+
 nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
 nnoremap <silent> <A-Left> :tabm -1<CR>
 nnoremap <silent> <A-Right> :tabm +1<CR>
 
 " PRETTIER
+
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 " NERDTREE KEYMAPS
+
 nnoremap <C-b> :NERDTreeToggle<CR>
 nnoremap <F2> :Move<CR>
 
