@@ -37,9 +37,9 @@ call plug#begin('~/.vim/plugged')
 
   " nerdtree
   Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' } " file tree
-  " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'ryanoasis/vim-devicons'
+  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 call plug#end()
 
 " ----- 
@@ -56,8 +56,9 @@ colorscheme gruvbox
 " VIM
 
 set cursorline
+set encoding=UTF-8
 set expandtab
-" set guifont=FiraCode\ Nerd\ Font\ Mono:h12
+set guifont=FiraCode\ Nerd\ Font\ Mono:h14
 set ignorecase
 set nopaste
 set number
