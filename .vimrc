@@ -14,7 +14,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf.vim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'} " code completion
   Plug 'tpope/vim-eunuch'
-  Plug 'tpope/vim-sensible' " sensible standards
+  " Disabled because it is included in vim-polyglot
+  " Plug 'tpope/vim-sensible' " sensible standards
   Plug 'christoomey/vim-tmux-navigator'
 
   " theme
@@ -23,7 +24,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'vim-airline/vim-airline-themes'
 
   " syntax highlighting / snippets / formatting
-  Plug 'tpope/vim-sleuth'
+  " Disabled because it is included in vim-polyglot
+  " Plug 'tpope/vim-sleuth'
   Plug 'yggdroot/indentline' " indent line
   Plug 'sheerun/vim-polyglot'
   Plug 'HerringtonDarkholme/yats.vim' " typescript highlighting
@@ -58,7 +60,7 @@ colorscheme gruvbox
 set cursorline
 set encoding=UTF-8
 set expandtab
-set guifont=FiraCode\ Nerd\ Font\ Mono:h14
+set guifont=FiraCodeMono\ Nerd\ Font\ Mono:h12
 set ignorecase
 set nopaste
 set number
@@ -83,6 +85,22 @@ autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_
 
 " Open the existing NERDTree on each new tab.
 " autocmd BufWinEnter * silent NERDTreeMirror
+
+" NERDTREE GIT
+let g:NERDTreeGitStatusUseNerdFonts = 1
+" let g:NERDTreeGitStatusIndicatorMapCustom = {
+                " \ 'Modified'  :'✹',
+                " \ 'Staged'    :'✚',
+                " \ 'Untracked' :'✭',
+                " \ 'Renamed'   :'➜',
+                " \ 'Unmerged'  :'═',
+                " \ 'Deleted'   :'✖',
+                " \ 'Dirty'     :'✗',
+                " \ 'Ignored'   :'☒',
+                " \ 'Clean'     :'✔︎',
+                " \ 'Unknown'   :'?',
+                " \ }
+
 
 " GIT BLAMER
 
@@ -122,10 +140,14 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 
 " INDENTLINE
 
-let g:indentLine_char = ''
-let g:indentLine_first_char = ''
+let g:indentLine_char = '|'
+let g:indentLine_first_char = '|'
 let g:indentLine_showFirstIndentLevel = 1
-let g:indentLine_setColors = 0
+let g:indentLine_setColors = 1
+
+" POLYGLOT
+let g:vim_markdown_conceal = 0
+" let g:vim_markdown_conceal_code_blocks = 0
 
 " ===========
 " KEYBINDINGS

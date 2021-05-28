@@ -91,7 +91,7 @@ source $ZSH/oh-my-zsh.sh
 #   export EDITOR='mvim'
 # fi
 
-export EDITOR='nvim'
+export EDITOR='neovide'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -220,9 +220,9 @@ alias oni2="${HOME}/AppImages/Onivim2-x86_64-master.AppImage"
 JIRA_CONFIG="/home/amjerm/.jira-cli/config.json"
 AMJERM_CONFIG="/home/amjerm/repos/amjerm/config-files"
 
-alias evim="nvim $AMJERM_CONFIG/.vimrc"
-alias etmux="nvim $AMJERM_CONFIG/.tmux.conf"
-alias ezsh="nvim $AMJERM_CONFIG/.zshrc"
+alias evim="$EDITOR $AMJERM_CONFIG/.vimrc"
+alias etmux="$EDITOR $AMJERM_CONFIG/.tmux.conf"
+alias ezsh="$EDITOR $AMJERM_CONFIG/.zshrc"
 alias enotes="cd ~/repos/amjerm/notes && nvim ."
 
 alias reset="source ~/.zshrc"
