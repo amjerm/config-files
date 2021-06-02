@@ -14,6 +14,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf.vim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'} " code completion
   Plug 'tpope/vim-eunuch'
+  Plug 'tpope/vim-surround'
+  Plug 'justinmk/vim-sneak'
   " Disabled because it is included in vim-polyglot
   " Plug 'tpope/vim-sensible' " sensible standards
   Plug 'christoomey/vim-tmux-navigator'
@@ -64,6 +66,7 @@ set guifont=FiraCodeMono\ Nerd\ Font\ Mono:h12
 set ignorecase
 set nopaste
 set number
+set scrolloff=999
 set shiftwidth=2
 set showtabline=2 " Show tab line when there is only one file open
 set smartcase
@@ -147,7 +150,7 @@ let g:indentLine_setColors = 1
 
 " POLYGLOT
 let g:vim_markdown_conceal = 0
-" let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_conceal_code_blocks = 0
 
 " ===========
 " KEYBINDINGS
@@ -160,6 +163,8 @@ nnoremap L g_
 nnoremap <C-t> :tabnew<CR>
 nnoremap t :tabnext<CR>
 nnoremap T :tabprev<CR>
+map f <Plug>Sneak_s
+map F <Plug>Sneak_S
 " Spacing for new code block
 inoremap <C-Return> <CR><CR><C-o>k<Tab>
 
