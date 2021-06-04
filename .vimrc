@@ -62,7 +62,7 @@ colorscheme gruvbox
 set cursorline
 set encoding=UTF-8
 set expandtab
-set guifont=FiraCodeMono\ Nerd\ Font\ Mono:h12
+set guifont=FiraCodeMono\ Nerd\ Font\ Mono:h14
 set ignorecase
 set nopaste
 set number
@@ -151,6 +151,9 @@ let g:indentLine_setColors = 1
 " POLYGLOT
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
+
+" NEOVIDE
+let g:neovide_fullscreen=v:true
 
 " ===========
 " KEYBINDINGS

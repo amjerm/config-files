@@ -224,10 +224,12 @@ alias evim="$EDITOR $AMJERM_CONFIG/.vimrc"
 alias etmux="$EDITOR $AMJERM_CONFIG/.tmux.conf"
 alias ezsh="$EDITOR $AMJERM_CONFIG/.zshrc"
 alias enotes="cd ~/repos/amjerm/notes && nvim ."
+alias practiceVim="$EDITOR ~/repos/amjerm/vim-practice"
 
 alias reset="source ~/.zshrc"
 
 alias nvide="neovide"
+alias edit=$EDITOR
 
 clear
 neofetch

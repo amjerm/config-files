@@ -1,4 +1,5 @@
 {
+  "breadcrumbs.enabled": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.detectIndentation": true,
   "editor.fontFamily": "Fira Code",
@@ -23,7 +24,7 @@
   "vim.highlightedyank.color": "#FF00FFFF",
   "vim.highlightedyank.duration": 1000,
   "vim.leader": ",",
-  "vim.useSystemClipboard": ["yank", "paste"],
+  "vim.useSystemClipboard": ["yank"],
   "workbench.activityBar.visible": true,
   "workbench.colorTheme": "Gruvbox Dark Hard",
   "workbench.editor.enablePreview": true,
@@ -38,5 +39,6 @@
     "editor.tabSize": 4,
     "phpcs.executablePath": "./vendor/bin/phpcs",
     "phpcs.standard": "PSR2"
-  }
+  },
+  "experimental.viml": ["so ~/.vim/plugged/vim-surround/plugin/surround.vim"]
 }
