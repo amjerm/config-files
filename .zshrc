@@ -91,7 +91,8 @@ source $ZSH/oh-my-zsh.sh
 #   export EDITOR='mvim'
 # fi
 
-export EDITOR='neovide'
+export EDITOR='nvim'
+export DBCLIENT='~/AppImages/Beekeeper-Studio-*.AppImage'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -116,11 +117,6 @@ prompt spaceship
 function gac() {
   git add -A
   git commit -m "$1"
-}
-
-function gacz() {
-  git add -A
-  git cz
 }
 
 function jqa() {
@@ -153,10 +149,6 @@ alias jc="jira jql current"
 alias ja="jira jql all"
 alias js="jira show"
 alias dt="echo -n 'local\t' && date '+%Y-%m-%d %T' && echo -n 'utc\t' && date -u '+%Y-%m-%d %T'"
-
-alias dklvshell='docker exec -it docker_laravel_1 /bin/bash'
-alias dkwpshell='docker exec -it docker_wordpress_1 /bin/bash'
-alias dklvdbshell='docker exec -it docker_laravel-db_1 /bin/bash'
 
 alias please="sudo !!"
 
@@ -228,8 +220,10 @@ alias practiceVim="$EDITOR ~/repos/amjerm/vim-practice"
 
 alias reset="source ~/.zshrc"
 
+alias td="todoist"
 alias nvide="neovide"
 alias edit=$EDITOR
+alias dbclient=$DBCLIENT
 
 clear
 neofetch
