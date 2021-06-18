@@ -225,6 +225,5 @@ alias nvide="neovide"
 alias edit=$EDITOR
 alias dbclient=$DBCLIENT
 
-clear
-neofetch
+cd && clear && neofetch
 # echo 'vpn';protonvpn s

@@ -21,7 +21,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'christoomey/vim-tmux-navigator'
 
   " theme
-  Plug 'morhetz/gruvbox'
+  Plug 'ghifarit53/tokyonight-vim'
+  " Plug 'morhetz/gruvbox'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
 
@@ -51,7 +52,7 @@ call plug#end()
 " -----
 
 set termguicolors
-colorscheme gruvbox
+colorscheme tokyonight
 
 " -------- 
 " SETTINGS
@@ -62,7 +63,8 @@ colorscheme gruvbox
 set cursorline
 set encoding=UTF-8
 set expandtab
-set guifont=FiraCodeMono\ Nerd\ Font\ Mono:h14
+" set guifont=FiraCodeMono\ Nerd\ Font\ Mono:h14
+set guifont=FiraCode\ Nerd\ Font:h14
 set ignorecase
 set nopaste
 set number
@@ -153,7 +155,7 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 
 " NEOVIDE
-let g:neovide_fullscreen=v:true
+" let g:neovide_fullscreen=v:true
 
 " ===========
 " KEYBINDINGS
@@ -166,8 +168,8 @@ nnoremap L g_
 nnoremap <C-t> :tabnew<CR>
 nnoremap t :tabnext<CR>
 nnoremap T :tabprev<CR>
-map f <Plug>Sneak_s
-map F <Plug>Sneak_S
+map <leader>f <Plug>Sneak_s
+map <leader>F <Plug>Sneak_S
 " Spacing for new code block
 inoremap <C-Return> <CR><CR><C-o>k<Tab>
 
