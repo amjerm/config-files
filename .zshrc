@@ -216,6 +216,7 @@ alias evim="$EDITOR $AMJERM_CONFIG/.vimrc"
 alias etmux="$EDITOR $AMJERM_CONFIG/.tmux.conf"
 alias ezsh="$EDITOR $AMJERM_CONFIG/.zshrc"
 alias enotes="cd ~/repos/amjerm/notes && nvim ."
+alias ejira="$EDITOR ~/.jira-cli/config.json"
 alias practiceVim="$EDITOR ~/repos/amjerm/vim-practice"
 
 alias reset="source ~/.zshrc"
@@ -224,6 +225,9 @@ alias td="todoist"
 alias nvide="neovide"
 alias edit=$EDITOR
 alias dbclient=$DBCLIENT
+alias lararavelDB="dex laravel-db && mysql laravel"
+
+alias backupHome='sh /home/amjerm/Scripts/backup-home.sh'
 
 cd && clear && neofetch
 # echo 'vpn';protonvpn s

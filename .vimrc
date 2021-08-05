@@ -21,7 +21,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'christoomey/vim-tmux-navigator'
 
   " theme
-  Plug 'ghifarit53/tokyonight-vim'
+  " Plug 'ghifarit53/tokyonight-vim'
+  Plug 'sainnhe/everforest'
+  " Plug 'arcticicestudio/nord-vim'
   " Plug 'morhetz/gruvbox'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
@@ -52,7 +54,8 @@ call plug#end()
 " -----
 
 set termguicolors
-colorscheme tokyonight
+" let g:everforest_background='hard'
+colorscheme everforest
 
 " -------- 
 " SETTINGS
@@ -64,7 +67,8 @@ set cursorline
 set encoding=UTF-8
 set expandtab
 " set guifont=FiraCodeMono\ Nerd\ Font\ Mono:h14
-set guifont=FiraCode\ Nerd\ Font:h14
+" set guifont=FiraCode\ Nerd\ Font:h14
+set guifont=FiraCode-Regular:h14
 set ignorecase
 set nopaste
 set number
@@ -73,6 +77,8 @@ set shiftwidth=2
 set showtabline=2 " Show tab line when there is only one file open
 set smartcase
 set softtabstop=2
+set splitbelow
+set splitright
 
 let pyxversion=3
 let mapleader = ","
@@ -216,6 +222,7 @@ map <C-_> <plug>NERDCommenterToggle
 
 nnoremap <C-p> :FZF<CR>
 nnoremap <C-F> :Ag<CR>
+nnoremap <C-i> :BTags<CR>
 
 " TABS
 
@@ -226,11 +233,12 @@ nnoremap <silent> <A-Right> :tabm +1<CR>
 
 " PRETTIER
 
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+vmap <leader>p  <Plug>(coc-format-selected)
+nmap <leader>p  <Plug>(coc-format-selected)
 
 " NERDTREE KEYMAPS
 
 nnoremap <C-b> :NERDTreeToggle<CR>
+nmap <leader>n :NERDTreeFind<CR>
 nnoremap <F2> :Move<CR>
 
