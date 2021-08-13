@@ -73,7 +73,6 @@ set ignorecase
 set nopaste
 set number
 set scrolloff=999
-set shiftwidth=2
 set showtabline=2 " Show tab line when there is only one file open
 set smartcase
 set softtabstop=2
@@ -135,11 +134,11 @@ let g:coc_global_extensions = [
   \ 'coc-pairs',
   \ 'coc-prettier',
   \ 'coc-snippets',
-  \ 'coc-tsserver'
+  \ 'coc-tsserver',
   \ ]
 
 " highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " format file
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -192,6 +191,8 @@ endif
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
+" Open diagnostics window
+nnoremap <C-d> :CocDiagnostics<CR> 
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -207,7 +208,7 @@ function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
+    call cocactionasync('dohover')
   else
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
@@ -239,6 +240,7 @@ nmap <leader>p  <Plug>(coc-format-selected)
 " NERDTREE KEYMAPS
 
 nnoremap <C-b> :NERDTreeToggle<CR>
-nmap <leader>n :NERDTreeFind<CR>
-nnoremap <F2> :Move<CR>
+nmap <leader>nf :NERDTreeFind<CR>
+nmap <leader>nm :NERDTreeMirror<CR>
+nmap <leader>nr :Move<CR>
 
