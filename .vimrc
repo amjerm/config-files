@@ -21,12 +21,21 @@ call plug#begin('~/.vim/plugged')
   Plug 'christoomey/vim-tmux-navigator'
 
   " theme
-  " Plug 'ghifarit53/tokyonight-vim'
+  Plug 'ajmwagar/vim-deus'
+  Plug 'arcticicestudio/nord-vim'
+  Plug 'ayu-theme/ayu-vim'
+  Plug 'fenetikm/falcon'
+  Plug 'ghifarit53/tokyonight-vim'
+  Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+  Plug 'sainnhe/edge'
   Plug 'sainnhe/everforest'
-  " Plug 'arcticicestudio/nord-vim'
-  " Plug 'morhetz/gruvbox'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
+  Plug 'sainnhe/gruvbox-material'
+  Plug 'sainnhe/sonokai'
+  Plug 'sjl/badwolf'
+
+  " Plug 'vim-airline/vim-airline'
+  " Plug 'vim-airline/vim-airline-themes'
+  Plug 'itchyny/lightline.vim'
 
   " syntax highlighting / snippets / formatting
   " Disabled because it is included in vim-polyglot
@@ -49,14 +58,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 call plug#end()
 
-" ----- 
-" THEME
-" -----
-
-set termguicolors
-" let g:everforest_background='hard'
-colorscheme everforest
-
 " -------- 
 " SETTINGS
 " -------- 
@@ -66,9 +67,8 @@ colorscheme everforest
 set cursorline
 set encoding=UTF-8
 set expandtab
-" set guifont=FiraCodeMono\ Nerd\ Font\ Mono:h14
-" set guifont=FiraCode\ Nerd\ Font:h14
-set guifont=FiraCode-Regular:h14
+" set guifont=FiraCode\ Nerd\ Font\ Mono:h11
+set guifont=Fira\ Code\ iCursive\ Op:h11
 set ignorecase
 set nopaste
 set number
@@ -97,6 +97,7 @@ autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_
 " autocmd BufWinEnter * silent NERDTreeMirror
 
 " NERDTREE GIT
+
 let g:NERDTreeGitStatusUseNerdFonts = 1
 " let g:NERDTreeGitStatusIndicatorMapCustom = {
                 " \ 'Modified'  :'✹',
@@ -128,13 +129,16 @@ let g:NERDSpaceDelims = 1
 " COC
 
 let g:coc_global_extensions = [
+  \ 'coc-emmet',
   \ 'coc-go',
   \ 'coc-inline-jest',
   \ 'coc-json',
   \ 'coc-pairs',
+  \ 'coc-phpls',
   \ 'coc-prettier',
   \ 'coc-snippets',
   \ 'coc-tsserver',
+  \ 'coc-yank',
   \ ]
 
 " highlight the symbol and its references when holding the cursor.
@@ -150,16 +154,18 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 
 " INDENTLINE
 
-let g:indentLine_char = '|'
-let g:indentLine_first_char = '|'
-let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_char = '.'
+" let g:indentLine_first_char = '|'
+" let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 1
 
 " POLYGLOT
+
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 
 " NEOVIDE
+
 " let g:neovide_fullscreen=v:true
 
 " ===========
@@ -243,4 +249,51 @@ nnoremap <C-b> :NERDTreeToggle<CR>
 nmap <leader>nf :NERDTreeFind<CR>
 nmap <leader>nm :NERDTreeMirror<CR>
 nmap <leader>nr :Move<CR>
+
+" ----- 
+" THEME
+" -----
+
+if (has('termguicolors'))
+  set termguicolors
+endif
+
+set background=dark
+
+let g:everforest_background='hard'
+
+" default, palenight, ocean, lighter, darker, default-community, palenight-community, ocean-community, lighter-community, darker-community
+let g:material_theme_style = 'palenight'
+let g:material_terminal_italics = 1
+
+" mirage, dark, light
+let ayucolor="mirage"
+
+" default, atlantis, andromeda, shusia, maia, espresso
+let g:sonokai_style = 'atlantis'
+let g:sonokai_enable_italic = 1
+
+
+" dark, aura, neon, light
+let g:edge_style = 'neon'
+let g:edge_enable_italic = 1
+" let g:edge_disable_italic_comment = 1
+
+" hard, medium(default), soft
+let g:gruvbox_material_background = 'soft'
+" material, mix, original
+let g:gruvbox_material_palette = 'mix'
+let g:gruvbox_material_enable_italic = 1
+let g:gruvbox_material_enable_bold = 1
+" let g:gruvbox_material_disable_italic_comment = 1
+let g:gruvbox_material_diagnostic_text_highlight = 1
+" let g:gruvbox_material_diagnostic_line_highlight = 1
+
+" material, grubox-material
+let g:airline_theme = 'gruvbox_material'
+
+" lightline
+let g:lightline = {'colorscheme' : 'gruvbox_material'}
+
+colorscheme gruvbox-material
 
