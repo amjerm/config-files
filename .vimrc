@@ -10,15 +10,15 @@ endif
 
 call plug#begin('~/.vim/plugged')
   " actions / utilities
+  Plug 'christoomey/vim-tmux-navigator'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fuzzy finder
   Plug 'junegunn/fzf.vim'
+  Plug 'justinmk/vim-sneak'
   Plug 'neoclide/coc.nvim', {'branch': 'release'} " code completion
   Plug 'tpope/vim-eunuch'
-  Plug 'tpope/vim-surround'
-  Plug 'justinmk/vim-sneak'
   " Disabled because it is included in vim-polyglot
   " Plug 'tpope/vim-sensible' " sensible standards
-  Plug 'christoomey/vim-tmux-navigator'
+  Plug 'tpope/vim-surround'
 
   " theme
   Plug 'ajmwagar/vim-deus'
@@ -27,6 +27,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'fenetikm/falcon'
   Plug 'ghifarit53/tokyonight-vim'
   Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+  Plug 'mcchrish/zenbones.nvim'
   Plug 'sainnhe/edge'
   Plug 'sainnhe/everforest'
   Plug 'sainnhe/gruvbox-material'
@@ -38,24 +39,25 @@ call plug#begin('~/.vim/plugged')
   Plug 'itchyny/lightline.vim'
 
   " syntax highlighting / snippets / formatting
+  Plug 'HerringtonDarkholme/yats.vim' " typescript highlighting
+  Plug 'mattn/emmet-vim' " emmet
+  Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
+  Plug 'preservim/nerdcommenter' " comment shortcuts
+  Plug 'sheerun/vim-polyglot'
   " Disabled because it is included in vim-polyglot
   " Plug 'tpope/vim-sleuth'
   Plug 'yggdroot/indentline' " indent line
-  Plug 'sheerun/vim-polyglot'
-  Plug 'HerringtonDarkholme/yats.vim' " typescript highlighting
-  Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
-  Plug 'mattn/emmet-vim' " emmet
-  Plug 'preservim/nerdcommenter' " comment shortcuts
 
   " git
-  Plug 'APZelos/blamer.nvim'
   Plug 'airblade/vim-gitgutter' " git status in gutter
+  Plug 'APZelos/blamer.nvim'
 
   " nerdtree
+  Plug 'PhilRunninger/nerdtree-visual-selection'
   Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' } " file tree
-  Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'ryanoasis/vim-devicons'
   Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+  Plug 'Xuyuanp/nerdtree-git-plugin'
 call plug#end()
 
 " -------- 
@@ -67,7 +69,6 @@ call plug#end()
 set cursorline
 set encoding=UTF-8
 set expandtab
-" set guifont=FiraCode\ Nerd\ Font\ Mono:h11
 set guifont=Fira\ Code\ iCursive\ Op:h11
 set ignorecase
 set nopaste
@@ -93,8 +94,11 @@ let &t_EI = "\<Esc>]50;CursorShape=3\x7"
 autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
-" Open the existing NERDTree on each new tab.
+" open the existing NERDTree on each new tab.
 " autocmd BufWinEnter * silent NERDTreeMirror
+
+" open NERDTree by default
+" autocmd VimEnter * NERDTree
 
 " NERDTREE GIT
 
@@ -174,12 +178,19 @@ let g:vim_markdown_conceal_code_blocks = 0
 
 " VIM
 
+" use H to navigate to start of text
 nnoremap H ^
+" use L to navigate to end of line
 nnoremap L g_
+" create new tab
 nnoremap <C-t> :tabnew<CR>
+" go to next tab
 nnoremap t :tabnext<CR>
+" go to previous tab
 nnoremap T :tabprev<CR>
+" go to next instance of two characters
 map <leader>f <Plug>Sneak_s
+" go to previous instance of two characters
 map <leader>F <Plug>Sneak_S
 " Spacing for new code block
 inoremap <C-Return> <CR><CR><C-o>k<Tab>
@@ -193,23 +204,23 @@ endif
 
 " COC
 
-" Remap keys for applying codeAction to the current line.
+" apply codeAction to the current line
 nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
+" quick fix the current line
 nmap <leader>qf  <Plug>(coc-fix-current)
-" Open diagnostics window
+" open diagnostic window
 nnoremap <C-d> :CocDiagnostics<CR> 
 
-" GoTo code navigation.
+" GoTo code navigation
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Remap for rename current word
+" rename current word
 nmap <F2> <Plug>(coc-rename)
 
-" Use K to show documentation in preview window.
+" use K to show documentation in preview window
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -223,19 +234,33 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " NERDCOMMENTER
 
+" toggle NerdCommenter
 map <C-_> <plug>NERDCommenterToggle
 
 " FZF FUZZYFINDER
 
+" find file
 nnoremap <C-p> :FZF<CR>
+" find string in all files
 nnoremap <C-F> :Ag<CR>
+" find tags
 nnoremap <C-i> :BTags<CR>
+" view git status
+nnoremap <C-g> :GFiles?<CR>
+" view git history of buffer
+nnoremap <leader>gh :BCommits<CR>
+" view buffers
+nnoremap <C-b> :Buffers<CR>
 
 " TABS
 
+" go to previous tab
 nnoremap <C-Left> :tabprevious<CR>
+" go to next tab
 nnoremap <C-Right> :tabnext<CR>
+" go to tab to the left
 nnoremap <silent> <A-Left> :tabm -1<CR>
+" go to tab to the right
 nnoremap <silent> <A-Right> :tabm +1<CR>
 
 " PRETTIER
@@ -245,10 +270,12 @@ nmap <leader>p  <Plug>(coc-format-selected)
 
 " NERDTREE KEYMAPS
 
-nnoremap <C-b> :NERDTreeToggle<CR>
+" open NERDTree
+nnoremap <C-n> :NERDTreeToggle<CR>
+" find file in NERDTree
 nmap <leader>nf :NERDTreeFind<CR>
+" mirror files in NERDTree
 nmap <leader>nm :NERDTreeMirror<CR>
-nmap <leader>nr :Move<CR>
 
 " ----- 
 " THEME
@@ -296,4 +323,3 @@ let g:airline_theme = 'gruvbox_material'
 let g:lightline = {'colorscheme' : 'gruvbox_material'}
 
 colorscheme gruvbox-material
-
