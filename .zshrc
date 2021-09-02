@@ -29,7 +29,7 @@ ZSH_THEME="spaceship"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to automatically update without prompting.
 # DISABLE_UPDATE_PROMPT="true"
@@ -50,7 +50,7 @@ ZSH_THEME="spaceship"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -85,13 +85,12 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 
-export EDITOR='nvim'
 export DBCLIENT='~/AppImages/Beekeeper-Studio-*.AppImage'
 
 # Compilation flags
@@ -106,13 +105,12 @@ export DBCLIENT='~/AppImages/Beekeeper-Studio-*.AppImage'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Set typewritten ZSH as a prompt
-#autoload -U promptinit; promptinit
-#prompt typewritten
-
 # Set Spaceship ZSH as a prompt
-autoload -Uz promptinit; promptinit
+autoload -Uz promptinit && promptinit
 prompt spaceship
+
+# Enabling ZSH git autocomplete
+autoload -Uz compinit && compinit
 
 function gac() {
   git add -A
@@ -186,11 +184,7 @@ function showDiff() {
   cat ~/diff.txt
 }
 
-function deployStart() {
-  echo -e "Deployment branch has been updated to most recent version of master. Ready to deploy branch to production.\n"
-  cat ~/diff.txt
-}
-
+# git helpers
 function gitBranchByString() {
   git branch | grep $1
 }
@@ -206,6 +200,11 @@ function gitBranchByReverseRegex() {
 }
 alias rgbbr="gitBranchByReverseRegex"
 
+function gitCheckoutByString() {
+  git checkout $(gitBranchByString $1)
+}
+alias gcbs="gitCheckoutByString"
+
 # Onivim2 AppImage
 alias oni2="${HOME}/AppImages/Onivim2-x86_64-master.AppImage"
 
@@ -215,6 +214,7 @@ AMJERM_CONFIG="/home/amjerm/repos/amjerm/config-files"
 alias evim="$EDITOR $AMJERM_CONFIG/.vimrc"
 alias etmux="$EDITOR $AMJERM_CONFIG/.tmux.conf"
 alias ezsh="$EDITOR $AMJERM_CONFIG/.zshrc"
+alias ewez="$EDITOR $AMJERM_CONFIG/wezterm.lua"
 alias enotes="cd ~/repos/amjerm/notes && nvim ."
 alias ejira="$EDITOR ~/.jira-cli/config.json"
 alias practiceVim="$EDITOR ~/repos/amjerm/vim-practice"
@@ -223,7 +223,7 @@ alias reset="source ~/.zshrc"
 
 alias td="todoist"
 alias nvide="neovide"
-alias edit=$EDITOR
+# alias edit=$EDITOR
 alias dbclient=$DBCLIENT
 alias lararavelDB="dex laravel-db && mysql laravel"
 

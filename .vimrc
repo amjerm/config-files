@@ -10,7 +10,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
   " actions / utilities
-  Plug 'christoomey/vim-tmux-navigator'
+  " Plug 'christoomey/vim-tmux-navigator'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fuzzy finder
   Plug 'junegunn/fzf.vim'
   Plug 'justinmk/vim-sneak'
@@ -188,6 +188,8 @@ nnoremap <C-t> :tabnew<CR>
 nnoremap t :tabnext<CR>
 " go to previous tab
 nnoremap T :tabprev<CR>
+" clear last search highlight
+nnoremap <C-l> :noh<CR>
 " go to next instance of two characters
 map <leader>f <Plug>Sneak_s
 " go to previous instance of two characters
