@@ -91,8 +91,6 @@ else
   export EDITOR='nvim'
 fi
 
-export DBCLIENT='~/AppImages/Beekeeper-Studio-*.AppImage'
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
