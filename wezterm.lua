@@ -23,8 +23,8 @@ end);
 
 return {
   color_scheme = color_scheme,
-  font = wezterm.font("JetBrains Mono"),
-  font_size = 10,
+  font = wezterm.font("Dank Mono"),
+  font_size = 11,
   initial_rows = 100,
   initial_cols = 160
 }

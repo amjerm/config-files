@@ -10,14 +10,11 @@ endif
 
 call plug#begin('~/.vim/plugged')
   " actions / utilities
-  " Plug 'christoomey/vim-tmux-navigator'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fuzzy finder
   Plug 'junegunn/fzf.vim'
   Plug 'justinmk/vim-sneak'
   Plug 'neoclide/coc.nvim', {'branch': 'release'} " code completion
   Plug 'tpope/vim-eunuch'
-  " Disabled because it is included in vim-polyglot
-  " Plug 'tpope/vim-sensible' " sensible standards
   Plug 'tpope/vim-surround'
 
   " theme
@@ -44,8 +41,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
   Plug 'preservim/nerdcommenter' " comment shortcuts
   Plug 'sheerun/vim-polyglot'
-  " Disabled because it is included in vim-polyglot
-  " Plug 'tpope/vim-sleuth'
   Plug 'yggdroot/indentline' " indent line
 
   " git
@@ -188,6 +183,10 @@ nnoremap <C-t> :tabnew<CR>
 nnoremap t :tabnext<CR>
 " go to previous tab
 nnoremap T :tabprev<CR>
+" go to tab to the left
+nnoremap <silent> <A-Left> :tabm -1<CR>
+" go to tab to the right
+nnoremap <silent> <A-Right> :tabm +1<CR>
 " clear last search highlight
 nnoremap <C-l> :noh<CR>
 " go to next instance of two characters
@@ -196,6 +195,11 @@ map <leader>f <Plug>Sneak_s
 map <leader>F <Plug>Sneak_S
 " Spacing for new code block
 inoremap <C-Return> <CR><CR><C-o>k<Tab>
+" Use ctrl-[hjkl] to select the active split!
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-l> :wincmd l<CR>
 
 " Use <c-space> to trigger completion.
 if has('nvim')
@@ -253,17 +257,6 @@ nnoremap <C-g> :GFiles?<CR>
 nnoremap <leader>gh :BCommits<CR>
 " view buffers
 nnoremap <C-b> :Buffers<CR>
-
-" TABS
-
-" go to previous tab
-nnoremap <C-Left> :tabprevious<CR>
-" go to next tab
-nnoremap <C-Right> :tabnext<CR>
-" go to tab to the left
-nnoremap <silent> <A-Left> :tabm -1<CR>
-" go to tab to the right
-nnoremap <silent> <A-Right> :tabm +1<CR>
 
 " PRETTIER
 

@@ -213,6 +213,7 @@ alias evim="$EDITOR $AMJERM_CONFIG/.vimrc"
 alias etmux="$EDITOR $AMJERM_CONFIG/.tmux.conf"
 alias ezsh="$EDITOR $AMJERM_CONFIG/.zshrc"
 alias ewez="$EDITOR $AMJERM_CONFIG/wezterm.lua"
+alias emutt="$EDITOR ~/.mutt/muttrc"
 alias enotes="cd ~/repos/amjerm/notes && nvim ."
 alias ejira="$EDITOR ~/.jira-cli/config.json"
 alias practiceVim="$EDITOR ~/repos/amjerm/vim-practice"
@@ -224,6 +225,7 @@ alias nvide="neovide"
 # alias edit=$EDITOR
 alias dbclient=$DBCLIENT
 alias lararavelDB="dex laravel-db && mysql laravel"
+alias mail="neomutt"
 
 alias backupHome='sh /home/amjerm/Scripts/backup-home.sh'
 
