@@ -30,6 +30,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'sainnhe/gruvbox-material'
   Plug 'sainnhe/sonokai'
   Plug 'sjl/badwolf'
+  Plug 'phanviet/vim-monokai-pro'
 
   " Plug 'vim-airline/vim-airline'
   " Plug 'vim-airline/vim-airline-themes'
@@ -315,6 +316,8 @@ let g:gruvbox_material_diagnostic_text_highlight = 1
 let g:airline_theme = 'gruvbox_material'
 
 " lightline
-let g:lightline = {'colorscheme' : 'gruvbox_material'}
+" let g:lightline = {'colorscheme' : 'gruvbox_material'}
+let g:lightline = {'colorscheme' : 'monokai_pro'}
 
-colorscheme gruvbox-material
+" colorscheme gruvbox-material
+colorscheme monokai_pro_machine
