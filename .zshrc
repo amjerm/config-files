@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export PATH=/home/amjerm/node_modules/.bin:$PATH
 # export PATH=./vendor/bin:$PATH
 export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
@@ -228,6 +228,10 @@ alias lararavelDB="dex laravel-db && mysql laravel"
 alias mail="neomutt"
 
 alias backupHome='sh /home/amjerm/Scripts/backup-home.sh'
+
+# TMUX
+alias tsp='tmux split-window -p'
+alias tkp='tmux kill-pane'
 
 cd && clear && neofetch
 # echo 'vpn';protonvpn s

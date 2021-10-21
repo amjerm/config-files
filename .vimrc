@@ -10,10 +10,12 @@ endif
 
 call plug#begin('~/.vim/plugged')
   " actions / utilities
+  Plug 'bfredl/nvim-miniyank'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fuzzy finder
   Plug 'junegunn/fzf.vim'
   Plug 'justinmk/vim-sneak'
   Plug 'neoclide/coc.nvim', {'branch': 'release'} " code completion
+  Plug 'tpope/vim-abolish'
   Plug 'tpope/vim-eunuch'
   Plug 'tpope/vim-surround'
 
@@ -48,12 +50,21 @@ call plug#begin('~/.vim/plugged')
   Plug 'airblade/vim-gitgutter' " git status in gutter
   Plug 'APZelos/blamer.nvim'
 
+  " tagbar
+  Plug 'preservim/tagbar'
+
   " nerdtree
   Plug 'PhilRunninger/nerdtree-visual-selection'
   Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' } " file tree
   Plug 'ryanoasis/vim-devicons'
   Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
   Plug 'Xuyuanp/nerdtree-git-plugin'
+
+  " debugger
+  Plug 'vim-vdebug/vdebug'
+
+  " documentation
+  Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 call plug#end()
 
 " -------- 
@@ -259,10 +270,24 @@ nnoremap <leader>gh :BCommits<CR>
 " view buffers
 nnoremap <C-b> :Buffers<CR>
 
+" MINIYANK
+map p <Plug>(miniyank-autoput)
+map P <Plug>(miniyank-autoPut)
+" directly put the most recent item in the shared history
+map <leader>p <Plug>(miniyank-startput)
+map <leader>P <Plug>(miniyank-startPut)
+" right after a put, use cycle to go through history
+map <leader>n <Plug>(miniyank-cycle)
+map <leader>N <Plug>(miniyank-cycleback)
+" change type
+map <leader>c <Plug>(miniyank-tochar)
+map <leader>l <Plug>(miniyank-toline)
+map <leader>b <Plug>(miniyank-toblock)
+
 " PRETTIER
 
-vmap <leader>p  <Plug>(coc-format-selected)
-nmap <leader>p  <Plug>(coc-format-selected)
+vmap <leader>pr  <Plug>(coc-format-selected)
+nmap <leader>pr  <Plug>(coc-format-selected)
 
 " NERDTREE KEYMAPS
 
@@ -272,6 +297,9 @@ nnoremap <C-n> :NERDTreeToggle<CR>
 nmap <leader>nf :NERDTreeFind<CR>
 " mirror files in NERDTree
 nmap <leader>nm :NERDTreeMirror<CR>
+
+" TAGBAR
+nmap <F8> :TagbarToggle<CR>
 
 " ----- 
 " THEME
