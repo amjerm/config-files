@@ -11,13 +11,14 @@ local color_scheme = color_scheme_pool[color_scheme_index]
 -- end)
 
 wezterm.on("window-config-reloaded", function(window, pane)
-  local date = wezterm.strftime("%Y-%m-%d %H:%M:%S");
+  -- local date = wezterm.strftime("%Y-%m-%d %H:%M:%S");
 
   -- Make it italic and underlined
   window:set_right_status(wezterm.format({
     -- {Attribute={Italic=true}},
     {Attribute={Intensity="Half"}},
-    {Text=date.." | "..window:effective_config().color_scheme},
+    -- {Text=date.." | "..window:effective_config().color_scheme},
+    {Text=window:effective_config().color_scheme},
   }));
 end);
 
