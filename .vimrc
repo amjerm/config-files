@@ -37,6 +37,7 @@ call plug#begin('~/.vim/plugged')
   " Plug 'vim-airline/vim-airline'
   " Plug 'vim-airline/vim-airline-themes'
   Plug 'itchyny/lightline.vim'
+  Plug 'josa42/vim-lightline-coc'
 
   " syntax highlighting / snippets / formatting
   Plug 'HerringtonDarkholme/yats.vim' " typescript highlighting
@@ -345,7 +346,18 @@ let g:airline_theme = 'gruvbox_material'
 
 " lightline
 " let g:lightline = {'colorscheme' : 'gruvbox_material'}
-let g:lightline = {'colorscheme' : 'monokai_pro'}
+
+let g:lightline = {
+  \   'colorscheme': 'monokai_pro',
+  \   'active': {
+  \     'left': [['mode', 'paste'], ['coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ], [ 'coc_status'  ], ['readonly', 'relativepath', 'modified']]
+  \   }
+  \ }
+
+" register compoments:
+call lightline#coc#register()
+
 
 " colorscheme gruvbox-material
 colorscheme monokai_pro_machine
+

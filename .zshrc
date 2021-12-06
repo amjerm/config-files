@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=~/.npm-global/bin:$PATH
 # export PATH=/home/amjerm/node_modules/.bin:$PATH
 # export PATH=./vendor/bin:$PATH
 export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
@@ -90,6 +91,9 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='nvim'
 fi
+
+# default fzf options
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -232,6 +236,8 @@ alias backupHome='sh /home/amjerm/Scripts/backup-home.sh'
 # TMUX
 alias tsp='tmux split-window -p'
 alias tkp='tmux kill-pane'
+
+alias elight='sudo nvim /sys/class/backlight/amdgpu_bl0/brightness'
 
 cd && clear && neofetch
 # echo 'vpn';protonvpn s
