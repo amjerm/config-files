@@ -34,10 +34,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'sjl/badwolf'
   Plug 'phanviet/vim-monokai-pro'
 
-  " Plug 'vim-airline/vim-airline'
-  " Plug 'vim-airline/vim-airline-themes'
-  Plug 'itchyny/lightline.vim'
-  Plug 'josa42/vim-lightline-coc'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  " Plug 'itchyny/lightline.vim'
+  " Plug 'josa42/vim-lightline-coc'
 
   " syntax highlighting / snippets / formatting
   Plug 'HerringtonDarkholme/yats.vim' " typescript highlighting
@@ -46,10 +46,12 @@ call plug#begin('~/.vim/plugged')
   Plug 'preservim/nerdcommenter' " comment shortcuts
   Plug 'sheerun/vim-polyglot'
   Plug 'yggdroot/indentline' " indent line
+  Plug 'bronson/vim-trailing-whitespace'
 
   " git
   Plug 'airblade/vim-gitgutter' " git status in gutter
   Plug 'APZelos/blamer.nvim'
+  Plug 'tpope/vim-fugitive'
 
   " tagbar
   Plug 'preservim/tagbar'
@@ -229,6 +231,10 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 nmap <leader>qf  <Plug>(coc-fix-current)
 " open diagnostic window
 nnoremap <C-d> :CocDiagnostics<CR> 
+" go to next diagnostic message
+nmap <silent> <Leader>E <Plug>(coc-diagnostic-prev)
+" go to previos diagnostic message
+nmap <silent> <Leader>e <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation
 nmap <silent> gd <Plug>(coc-definition)
@@ -342,20 +348,26 @@ let g:gruvbox_material_diagnostic_text_highlight = 1
 " let g:gruvbox_material_diagnostic_line_highlight = 1
 
 " material, grubox-material
-let g:airline_theme = 'gruvbox_material'
+" let g:airline_theme = 'gruvbox_material'
+" let g:airline_theme='wombat'
+" let g:airline_theme='distinguished'
+" let g:airline_theme='minimalist'
+let g:airline_theme='sol'
+" let g:airline_theme='papercolor'
+let g:airline_powerline_fonts=1
 
 " lightline
 " let g:lightline = {'colorscheme' : 'gruvbox_material'}
 
-let g:lightline = {
-  \   'colorscheme': 'monokai_pro',
-  \   'active': {
-  \     'left': [['mode', 'paste'], ['coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ], [ 'coc_status'  ], ['readonly', 'relativepath', 'modified']]
-  \   }
-  \ }
+" let g:lightline = {
+  " \   'colorscheme': 'monokai_pro',
+  " \   'active': {
+  " \     'left': [['mode', 'paste'], ['coc_info', 'coc_hints', 'coc_errors', 'coc_warnings', 'coc_ok' ], [ 'coc_status'  ], ['readonly', 'relativepath', 'modified']]
+  " \   }
+  " \ }
 
 " register compoments:
-call lightline#coc#register()
+" call lightline#coc#register()
 
 
 " colorscheme gruvbox-material
