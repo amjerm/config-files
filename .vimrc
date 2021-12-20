@@ -194,10 +194,14 @@ nnoremap H ^
 nnoremap L g_
 " create new tab
 nnoremap <C-t> :tabnew<CR>
-" go to next tab
-nnoremap t :tabnext<CR>
-" go to previous tab
-nnoremap T :tabprev<CR>
+" go to next/previous tab
+if exists('g:vscode')
+  nmap <silent> t :call VSCodeCall('workbench.action.nextEditor')<CR>
+  nmap <silent> T :call VSCodeCall('workbench.action.previousEditor')<CR>
+else
+  nnoremap t :tabnext<CR>
+  nnoremap T :tabprev<CR>
+endif
 " go to tab to the left
 nnoremap <silent> <A-Left> :tabm -1<CR>
 " go to tab to the right
@@ -230,17 +234,35 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " quick fix the current line
 nmap <leader>qf  <Plug>(coc-fix-current)
 " open diagnostic window
-nnoremap <C-d> :CocDiagnostics<CR> 
-" go to next diagnostic message
-nmap <silent> <Leader>E <Plug>(coc-diagnostic-prev)
-" go to previos diagnostic message
-nmap <silent> <Leader>e <Plug>(coc-diagnostic-next)
+if exists('g:vscode')
+  nnoremap <C-d> :call VSCodeCall('workbench.panel.markers.view.focus')<CR> 
+else
+  nnoremap <C-d> :CocDiagnostics<CR> 
+endif
 
-" GoTo code navigation
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+# navigate diagnostic messages
+if exists('g:vscode')
+  nmap <silent> <Leader>e :call VSCodeCall('editor.action.marker.next')<CR>
+  nmap <silent> <Leader>E :call VSCodeCall('editor.action.marker.prev')<CR>
+else
+  nmap <silent> <Leader>e <Plug>(coc-diagnostic-next)
+  nmap <silent> <Leader>E <Plug>(coc-diagnostic-prev)
+endif
+
+" GoTo code navigation.
+if exists('g:vscode')
+  nmap <silent> gd :call VSCodeCall('editor.action.revealDefinition')<CR>
+  nmap <silent> gy :call VSCodeCall('editor.action.goToTypeDefinition')<CR>
+  nmap <silent> gY :call VSCodeCall('editor.action.peekTypeDefinition')<CR>
+  nmap <silent> gi :call VSCodeCall('editor.action.goToImplementation')<CR>
+  nmap <silent> gI :call VSCodeCall('editor.action.peekImplementation')<CR>
+  nmap <silent> gr :call VSCodeCall('editor.action.goToReferences')<CR>
+else
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+endif
 
 " rename current word
 nmap <F2> <Plug>(coc-rename)
