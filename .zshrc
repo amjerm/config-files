@@ -8,7 +8,7 @@ export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 DOCKER_ENV_PATH="/home/amjerm/repos/tsi/docker"
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/amjerm/.oh-my-zsh"
+export ZSH="~/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -239,5 +239,10 @@ alias tkp='tmux kill-pane'
 
 alias elight='sudo nvim /sys/class/backlight/amdgpu_bl0/brightness'
 
-cd && clear && neofetch
+cd && clear
+
+if command -v neofetch > /dev/null; then
+  neofetch
+fi
+
 # echo 'vpn';protonvpn s

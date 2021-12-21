@@ -70,9 +70,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 call plug#end()
 
-" -------- 
+" --------
 " SETTINGS
-" -------- 
+" --------
 
 " VIM
 
@@ -240,7 +240,6 @@ else
   nnoremap <C-d> :CocDiagnostics<CR> 
 endif
 
-# navigate diagnostic messages
 if exists('g:vscode')
   nmap <silent> <Leader>e :call VSCodeCall('editor.action.marker.next')<CR>
   nmap <silent> <Leader>E :call VSCodeCall('editor.action.marker.prev')<CR>
@@ -392,6 +391,6 @@ let g:airline_powerline_fonts=1
 " call lightline#coc#register()
 
 
-" colorscheme gruvbox-material
-colorscheme monokai_pro_machine
+colorscheme gruvbox-material
+" colorscheme monokai_pro_machine
 
