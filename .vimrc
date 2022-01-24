@@ -47,6 +47,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'sheerun/vim-polyglot'
   Plug 'yggdroot/indentline' " indent line
   Plug 'bronson/vim-trailing-whitespace'
+  Plug 'github/copilot.vim'
+  Plug 'tpope/vim-commentary'
 
   " git
   Plug 'airblade/vim-gitgutter' " git status in gutter
@@ -70,9 +72,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 call plug#end()
 
-" -------- 
+" --------
 " SETTINGS
-" -------- 
+" --------
 
 " VIM
 
@@ -212,6 +214,9 @@ nnoremap <C-l> :noh<CR>
 map <leader>f <Plug>Sneak_s
 " go to previous instance of two characters
 map <leader>F <Plug>Sneak_S
+
+if exists('g:vscode')
+else
 " Spacing for new code block
 inoremap <C-Return> <CR><CR><C-o>k<Tab>
 " Use ctrl-[hjkl] to select the active split!
@@ -219,6 +224,8 @@ nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
+nmap <F2> <Plug>(coc-rename)
+endif
 
 " Use <c-space> to trigger completion.
 if has('nvim')
@@ -235,12 +242,12 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 nmap <leader>qf  <Plug>(coc-fix-current)
 " open diagnostic window
 if exists('g:vscode')
-  nnoremap <C-d> :call VSCodeCall('workbench.panel.markers.view.focus')<CR> 
+  nnoremap <C-d> :call VSCodeCall('workbench.panel.markers.view.focus')<CR>
 else
-  nnoremap <C-d> :CocDiagnostics<CR> 
+  nnoremap <C-d> :CocDiagnostics<CR>
 endif
 
-# navigate diagnostic messages
+" navigate to markers
 if exists('g:vscode')
   nmap <silent> <Leader>e :call VSCodeCall('editor.action.marker.next')<CR>
   nmap <silent> <Leader>E :call VSCodeCall('editor.action.marker.prev')<CR>
@@ -264,9 +271,14 @@ else
   nmap <silent> gr <Plug>(coc-references)
 endif
 
+if exists('g:vscode')
+else
 " rename current word
 nmap <F2> <Plug>(coc-rename)
+endif
 
+if exists('g:vscode')
+else
 " use K to show documentation in preview window
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -278,6 +290,7 @@ function! s:show_documentation()
   endif
 endfunction
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+endif
 
 " NERDCOMMENTER
 
@@ -286,6 +299,9 @@ map <C-_> <plug>NERDCommenterToggle
 
 " FZF FUZZYFINDER
 
+if exists('g:vscode')
+map <C-i> :call VSCodeCall('editor.action.showHover')<CR>
+else
 " find file
 nnoremap <C-p> :FZF<CR>
 " find string in all files
@@ -298,8 +314,12 @@ nnoremap <C-g> :GFiles?<CR>
 nnoremap <leader>gh :BCommits<CR>
 " view buffers
 nnoremap <C-b> :Buffers<CR>
+endif
 
 " MINIYANK
+
+if exists('g:vscode')
+else
 map p <Plug>(miniyank-autoput)
 map P <Plug>(miniyank-autoPut)
 " directly put the most recent item in the shared history
@@ -312,6 +332,7 @@ map <leader>N <Plug>(miniyank-cycleback)
 map <leader>c <Plug>(miniyank-tochar)
 map <leader>l <Plug>(miniyank-toline)
 map <leader>b <Plug>(miniyank-toblock)
+endif
 
 " PRETTIER
 
@@ -320,17 +341,23 @@ nmap <leader>pr  <Plug>(coc-format-selected)
 
 " NERDTREE KEYMAPS
 
+if exists('g:vscode')
+else
 " open NERDTree
 nnoremap <C-n> :NERDTreeToggle<CR>
 " find file in NERDTree
 nmap <leader>nf :NERDTreeFind<CR>
 " mirror files in NERDTree
 nmap <leader>nm :NERDTreeMirror<CR>
+endif
 
+if exists('g:vscode')
+else
 " TAGBAR
 nmap <F8> :TagbarToggle<CR>
+endif
 
-" ----- 
+" -----
 " THEME
 " -----
 
