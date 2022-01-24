@@ -419,6 +419,6 @@ let g:airline_powerline_fonts=1
 " call lightline#coc#register()
 
 
-" colorscheme gruvbox-material
-colorscheme monokai_pro_machine
+colorscheme gruvbox-material
+" colorscheme monokai_pro_machine
 
