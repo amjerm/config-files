@@ -1,3 +1,8 @@
+
+#### FIG ENV VARIABLES ####
+# Please make sure this block is at the start of this file.
+[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
+#### END FIG ENV VARIABLES ####
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=~/.npm-global/bin:$PATH
@@ -123,7 +128,12 @@ function jqa() {
   sh ~/Scripts/jira/qa_ready.sh "$@"
 }
 
+function js() {
+  cd ~ && jira show "$1" && cd -
+}
+
 function jip() {
+  cd ~
   for ticket in $(echo $1 | sed "s/,/ /g")
   do
     jira start "$ticket"
@@ -131,6 +141,7 @@ function jip() {
   done
   echo ""
   jira jql current
+  cd -
 }
 
 function aur() {
@@ -145,9 +156,8 @@ alias weatherdetail="curl v2d.wttr.in"
 
 alias lasttags="echo 'LARAVEL' && git --git-dir=$DOCKER_ENV_PATH/repos/laravel/.git ld && echo '' && echo 'wordpress' && git --git-dir=$DOCKER_ENV_PATH/repos/wordpress/.git ld"
 
-alias jc="jira jql current"
-alias ja="jira jql all"
-alias js="jira show"
+alias jc="cd ~ && jira jql current && cd -"
+alias ja="cd ~ && jira jql all && cd -"
 alias dt="echo -n 'local\t' && date '+%Y-%m-%d %T' && echo -n 'utc\t' && date -u '+%Y-%m-%d %T'"
 
 alias please="sudo !!"
@@ -210,10 +220,10 @@ alias gcbs="gitCheckoutByString"
 # Onivim2 AppImage
 alias oni2="${HOME}/AppImages/Onivim2-x86_64-master.AppImage"
 
-JIRA_CONFIG="/home/amjerm/.jira-cli/config.json"
-AMJERM_CONFIG="/home/amjerm/repos/amjerm/config-files"
+JIRA_CONFIG="~/.jira-cli/config.json"
+AMJERM_CONFIG="~/repos/amjerm/config-files"
 
-alias evim="$EDITOR $AMJERM_CONFIG/.vimrc"
+alias evim="$EDITOR $AMJERM_CONFIG/vim/.vimrc"
 alias etmux="$EDITOR $AMJERM_CONFIG/.tmux.conf"
 alias ezsh="$EDITOR $AMJERM_CONFIG/.zshrc"
 alias ewez="$EDITOR $AMJERM_CONFIG/wezterm.lua"
@@ -246,3 +256,8 @@ if command -v neofetch > /dev/null; then
 fi
 
 # echo 'vpn';protonvpn s
+
+#### FIG ENV VARIABLES ####
+# Please make sure this block is at the end of this file.
+[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
+#### END FIG ENV VARIABLES ####
