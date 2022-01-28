@@ -25,7 +25,7 @@ end);
 return {
   color_scheme = color_scheme,
   font = wezterm.font("Dank Mono"),
-  font_size = 12,
+  font_size = 13,
   initial_rows = 40,
   initial_cols = 105
 }

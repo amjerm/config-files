@@ -217,6 +217,9 @@ function gitCheckoutByString() {
 }
 alias gcbs="gitCheckoutByString"
 
+alias gcbd="git config branch.$(git branch --show-current).description"
+alias gbd="sh ~/Scripts/git/branch-descriptions.sh"
+
 # Onivim2 AppImage
 alias oni2="${HOME}/AppImages/Onivim2-x86_64-master.AppImage"
 
