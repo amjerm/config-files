@@ -68,6 +68,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fuzzy finder
   Plug 'junegunn/fzf.vim'
   Plug 'justinmk/vim-sneak'
+  Plug 'easymotion/vim-easymotion'
+  Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-abolish'
   Plug 'tpope/vim-eunuch'
   Plug 'tpope/vim-surround'
@@ -291,6 +293,14 @@ map <leader>N <Plug>(miniyank-cycleback)
 map <leader>c <Plug>(miniyank-tochar)
 map <leader>l <Plug>(miniyank-toline)
 map <leader>b <Plug>(miniyank-toblock)
+
+" easymotion
+" Turn on case-insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
 
 " use K to show documentation in preview window
 function! s:show_documentation()
