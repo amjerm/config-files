@@ -24,9 +24,19 @@ call plug#begin('~/.vim/plugged')
     Plug 'sainnhe/sonokai'
     Plug 'sjl/badwolf'
     Plug 'phanviet/vim-monokai-pro'
+    Plug 'dracula/vim', { 'as': 'dracula' }
+    Plug 'sonph/onehalf', { 'rtp': 'vim' }
 
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
+    " buffer and status lines
+    Plug 'kyazdani42/nvim-web-devicons'
+    Plug 'akinsho/bufferline.nvim'
+    Plug 'nvim-lualine/lualine.nvim'
+
+    " tagbar
+    Plug 'preservim/tagbar'
+
+    " file tree
+    Plug 'kyazdani42/nvim-tree.lua'
 
     " syntax highlighting / snippets / formatting
     Plug 'HerringtonDarkholme/yats.vim' " typescript highlighting
@@ -36,21 +46,12 @@ call plug#begin('~/.vim/plugged')
     Plug 'sheerun/vim-polyglot'
     Plug 'yggdroot/indentline' " indent line
     Plug 'bronson/vim-trailing-whitespace'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
     " git
     Plug 'airblade/vim-gitgutter' " git status in gutter
     Plug 'APZelos/blamer.nvim'
     Plug 'tpope/vim-fugitive'
-
-    " tagbar
-    Plug 'preservim/tagbar'
-
-    " nerdtree
-    Plug 'PhilRunninger/nerdtree-visual-selection'
-    Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' } " file tree
-    Plug 'ryanoasis/vim-devicons'
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-    Plug 'Xuyuanp/nerdtree-git-plugin'
 
     " debugger
     Plug 'vim-vdebug/vdebug'
@@ -70,7 +71,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-abolish'
   Plug 'tpope/vim-eunuch'
   Plug 'tpope/vim-surround'
+  Plug 'andymass/vim-matchup'
 call plug#end()
+
+
+let g:material_colorscheme_map = {}
 
 lua <<EOF
 -- OPTIONS
@@ -94,7 +99,6 @@ vim.o.background = 'dark'
 -- GLOBALS
 vim.g.mapleader = ' '
 vim.g.indentLine_char = '.'
-vim.g.NERDTreeGitStatusUseNerdFonts = 1
 vim.g.blamer_enabled = 1
 vim.g.blamer_date_format = '%Y-%m-%d %H:%M'
 vim.g.blamer_relative_time = 1
@@ -112,13 +116,14 @@ vim.g.coc_global_extensions = {
   'coc-prettier',
   'coc-snippets',
   'coc-tsserver',
-  'coc-yank'
+  'coc-yank',
+  'coc-rust-analyzer'
 }
 vim.g.vim_markdown_conceal = false
 vim.g.vim_markdown_conceal_code_blocks = false
 vim.g.everforest_background = 'hard'
 -- default, palenight, ocean, lighter, darker, default-community, palenight-community, ocean-community, lighter-community, darker-community
-vim.g.material_theme_style = 'palenight'
+vim.g.material_theme_style = 'ocean'
 vim.g.material_terminal_italics = true
 -- mirage, dark, light
 vim.g.ayucolor = 'mirage'
@@ -126,7 +131,7 @@ vim.g.ayucolor = 'mirage'
 vim.g.sonokai_style = 'atlantis'
 vim.g.sonokai_enable_italic = true
 -- dark, aura, neon, light
-vim.g.edge_style = 'neon'
+vim.g.edge_style = 'light'
 vim.g.edge_enable_italic = true
 -- vim.g.edge_disable_italic_comment = true
 -- hard, medium(default), soft
@@ -137,14 +142,32 @@ vim.g.gruvbox_material_enable_italic = true
 vim.g.gruvbox_material_enable_bold = true
 vim.g.gruvbox_material_diagnostic_text_highlight = true
 -- vim.g.gruvbox_material_diagnostic_line_highlight = 1
--- material, grubox-material, distinguished, minimalist, sol, papercolor
-vim.g.airline_theme = 'sol'
-vim.g.airline_powerline_fonts = true
+-- distinguished, minimalist, sol, papercolor, alduin, angr, apprentice, atomic
+-- vim.g.airline_theme = 'base16_material'
+-- vim.g.airline_powerline_fonts = true
+
+require('bufferline').setup({
+  options = {
+    numbers = function(opts)
+      return string.format('%s', opts.id)
+    end,
+    show_buffer_close_icons = false,
+    separator_style = "slant",
+    diagnostics = "coc",
+  }
+})
+
+require('lualine').setup({ options = { theme = 'material' }})
+require('nvim-tree').setup()
+require'nvim-treesitter.configs'.setup {
+  matchup = {
+    enable = true,              -- mandatory, false will disable the whole extension
+  },
+}
 EOF
 
 if !exists('g:vscode')
-  colorscheme gruvbox-material
-  " colorscheme monokai_pro_machine
+  colorscheme material
 endif
 
 " cursor settings
@@ -204,21 +227,14 @@ else
   nnoremap <leader>gh :BCommits<CR>
   " view buffers
   nnoremap <C-b> :Buffers<CR>
-  " open NERDTree
-  nnoremap <C-n> :NERDTreeToggle<CR>
-  " find file in NERDTree
-  nmap <leader>nf :NERDTreeFind<CR>
-  " mirror files in NERDTree
-  nmap <leader>nm :NERDTreeMirror<CR>
+  " open file tree
+  nnoremap <C-n> :NvimTreeToggle<CR>
+  " find file in file tree
+  nmap <leader>ff :NvimTreeFindFile<CR>
+  " mirror files in file tree
+  nmap <leader>fo :NvimTreeFocus<CR>
   " tagbar
   nmap <F8> :TagbarToggle<CR>
-  " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-  autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-      \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-  " open the existing NERDTree on each new tab.
-  " autocmd BufWinEnter * silent NERDTreeMirror
-  " open NERDTree by default
-  " autocmd VimEnter * NERDTree
   if has('nvim')
     " use <c-space> to trigger completion
     inoremap <silent><expr> <c-space> coc#refresh()
@@ -251,6 +267,8 @@ else
   endif
 endif
 
+" use jk to escape
+imap jk <Esc>
 " use H to navigate to start of text
 nnoremap H ^
 " use L to navigate to end of line
