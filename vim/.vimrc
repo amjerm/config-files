@@ -66,6 +66,7 @@ call plug#begin('~/.vim/plugged')
   " actions / utilities
   Plug 'bfredl/nvim-miniyank'
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fuzzy finder
+  Plug 'mileszs/ack.vim'
   Plug 'junegunn/fzf.vim'
   Plug 'justinmk/vim-sneak'
   Plug 'easymotion/vim-easymotion'
@@ -76,8 +77,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'andymass/vim-matchup'
 call plug#end()
 
-
-let g:material_colorscheme_map = {}
+lua require('globals')
 
 lua <<EOF
 -- OPTIONS
@@ -99,15 +99,37 @@ vim.o.termguicolors = true
 vim.o.background = 'dark'
 
 -- GLOBALS
-vim.g.mapleader = ' '
-vim.g.indentLine_char = '.'
-vim.g.blamer_enabled = 1
-vim.g.blamer_date_format = '%Y-%m-%d %H:%M'
-vim.g.blamer_relative_time = 1
+-- vim.g.airline_powerline_fonts = true
+-- vim.g.airline_theme = 'base16_material' distinguished, minimalist, sol, papercolor, alduin, angr, apprentice, atomic
+-- vim.g.edge_disable_italic_comment = true
+-- vim.g.gruvbox_material_diagnostic_line_highlight = 1
 vim.g.NERDCreateDefaultMappings = 1
 vim.g.NERDDEfaultAlign = 'left'
-vim.g.NERDTrimTrailingWhitespace = 1
 vim.g.NERDSpaceDelims = 1
+vim.g.NERDTrimTrailingWhitespace = 1
+vim.g.ayucolor = 'mirage' -- mirage, dark, light
+vim.g.blamer_date_format = '%Y-%m-%d %H:%M'
+vim.g.blamer_enabled = 1
+vim.g.blamer_relative_time = 1
+vim.g.edge_enable_italic = 1
+vim.g.edge_style = 'light' -- dark, aura, neon, light
+vim.g.everforest_background = 'hard'
+vim.g.gruvbox_material_background = 'soft' -- hard, medium(default), soft
+vim.g.gruvbox_material_diagnostic_text_highlight = 1
+vim.g.gruvbox_material_enable_bold = 1
+vim.g.gruvbox_material_enable_italic = 1
+vim.g.gruvbox_material_palette = 'mix' -- material, mix, original
+vim.g.indentLine_char = '.'
+vim.g.mapleader = ' '
+vim.g.material_colorscheme_map = {}
+vim.g.material_terminal_italics = 1
+vim.g.material_theme_style = 'ocean' -- default, palenight, ocean, lighter, darker, default-community, palenight-community, ocean-community, lighter-community, darker-community
+vim.g.nvim_tree_git_hl = 1
+vim.g.nvim_tree_highlight_opened_files = 1
+vim.g.sonokai_enable_italic = 1
+vim.g.sonokai_style = 'atlantis' -- default, atlantis, andromeda, shusia, maia, espresso
+vim.g.vim_markdown_conceal = 0
+vim.g.vim_markdown_conceal_code_blocks = 0
 vim.g.coc_global_extensions = {
   'coc-emmet',
   'coc-go',
@@ -121,32 +143,6 @@ vim.g.coc_global_extensions = {
   'coc-yank',
   'coc-rust-analyzer'
 }
-vim.g.vim_markdown_conceal = false
-vim.g.vim_markdown_conceal_code_blocks = false
-vim.g.everforest_background = 'hard'
--- default, palenight, ocean, lighter, darker, default-community, palenight-community, ocean-community, lighter-community, darker-community
-vim.g.material_theme_style = 'ocean'
-vim.g.material_terminal_italics = true
--- mirage, dark, light
-vim.g.ayucolor = 'mirage'
--- default, atlantis, andromeda, shusia, maia, espresso
-vim.g.sonokai_style = 'atlantis'
-vim.g.sonokai_enable_italic = true
--- dark, aura, neon, light
-vim.g.edge_style = 'light'
-vim.g.edge_enable_italic = true
--- vim.g.edge_disable_italic_comment = true
--- hard, medium(default), soft
-vim.g.gruvbox_material_background = 'soft'
--- material, mix, original
-vim.g.gruvbox_material_palette = 'mix'
-vim.g.gruvbox_material_enable_italic = true
-vim.g.gruvbox_material_enable_bold = true
-vim.g.gruvbox_material_diagnostic_text_highlight = true
--- vim.g.gruvbox_material_diagnostic_line_highlight = 1
--- distinguished, minimalist, sol, papercolor, alduin, angr, apprentice, atomic
--- vim.g.airline_theme = 'base16_material'
--- vim.g.airline_powerline_fonts = true
 
 require('bufferline').setup({
   options = {
@@ -160,7 +156,13 @@ require('bufferline').setup({
 })
 
 require('lualine').setup({ options = { theme = 'material' }})
-require('nvim-tree').setup()
+require('nvim-tree').setup({
+  actions = {
+    open_file = {
+      quit_on_open = true
+    }
+  }
+})
 require'nvim-treesitter.configs'.setup {
   matchup = {
     enable = true,              -- mandatory, false will disable the whole extension
@@ -198,11 +200,11 @@ if exists('g:vscode')
   nmap <silent> gI :call VSCodeCall('editor.action.peekImplementation')<CR>
   nmap <silent> gr :call VSCodeCall('editor.action.goToReferences')<CR>
 else
-  " create new tab
+  " create new tab (use buffers)
   nnoremap <C-t> :tabnew<CR>
   " next/previous tab
-  nnoremap t :tabnext<CR>
-  nnoremap T :tabprev<CR>
+  nnoremap t :bnext<CR>
+  nnoremap T :bprev<CR>
   " go to tab to the left
   nnoremap <silent> <A-Left> :tabm -1<CR>
   " go to tab to the right
@@ -233,6 +235,7 @@ else
   nnoremap <C-n> :NvimTreeToggle<CR>
   " find file in file tree
   nmap <leader>ff :NvimTreeFindFile<CR>
+  nmap <leader>nn :NvimTreeFindFile<CR>
   " mirror files in file tree
   nmap <leader>fo :NvimTreeFocus<CR>
   " tagbar
@@ -253,6 +256,7 @@ else
     nmap <silent> gd <Plug>(coc-definition)
     nmap <silent> gy <Plug>(coc-type-definition)
     nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
     " rename current word
     nmap <F2> <Plug>(coc-rename)
     " format with prettier
@@ -299,8 +303,8 @@ map <leader>b <Plug>(miniyank-toblock)
 let g:EasyMotion_smartcase = 1
 
 " JK motions: Line motions
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
+map <Leader><Leader>j <Plug>(easymotion-j)
+map <Leader><Leader>k <Plug>(easymotion-k)
 
 " use K to show documentation in preview window
 function! s:show_documentation()
