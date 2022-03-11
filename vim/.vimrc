@@ -1,7 +1,3 @@
-" --------
-" PLUGINS
-" --------
-
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -31,9 +27,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'akinsho/bufferline.nvim'
     Plug 'nvim-lualine/lualine.nvim'
-
-    " tagbar
-    Plug 'preservim/tagbar'
 
     " file tree
     Plug 'kyazdani42/nvim-tree.lua'
@@ -77,97 +70,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'andymass/vim-matchup'
 call plug#end()
 
-lua require('globals')
-
 lua <<EOF
--- OPTIONS
-vim.o.encoding = "utf-8"
-vim.o.cursorline = true
-vim.o.expandtab = true
-vim.o.ignorecase = true
-vim.o.paste = false
-vim.o.number = true
-vim.o.smartcase = true
-vim.o.splitright = true
-vim.o.splitbelow = true
-vim.o.showtabline = 2
-vim.o.softtabstop = 2
-vim.o.scrolloff = 999
-vim.o.guifont = "Fira Code iCursive Op:h11"
-vim.o.pyxversion = 3
-vim.o.termguicolors = true
-vim.o.background = 'dark'
-
--- GLOBALS
--- vim.g.airline_powerline_fonts = true
--- vim.g.airline_theme = 'base16_material' distinguished, minimalist, sol, papercolor, alduin, angr, apprentice, atomic
--- vim.g.edge_disable_italic_comment = true
--- vim.g.gruvbox_material_diagnostic_line_highlight = 1
-vim.g.NERDCreateDefaultMappings = 1
-vim.g.NERDDEfaultAlign = 'left'
-vim.g.NERDSpaceDelims = 1
-vim.g.NERDTrimTrailingWhitespace = 1
-vim.g.ayucolor = 'mirage' -- mirage, dark, light
-vim.g.blamer_date_format = '%Y-%m-%d %H:%M'
-vim.g.blamer_enabled = 1
-vim.g.blamer_relative_time = 1
-vim.g.edge_enable_italic = 1
-vim.g.edge_style = 'light' -- dark, aura, neon, light
-vim.g.everforest_background = 'hard'
-vim.g.gruvbox_material_background = 'soft' -- hard, medium(default), soft
-vim.g.gruvbox_material_diagnostic_text_highlight = 1
-vim.g.gruvbox_material_enable_bold = 1
-vim.g.gruvbox_material_enable_italic = 1
-vim.g.gruvbox_material_palette = 'mix' -- material, mix, original
-vim.g.indentLine_char = '.'
-vim.g.mapleader = ' '
-vim.g.material_colorscheme_map = {}
-vim.g.material_terminal_italics = 1
-vim.g.material_theme_style = 'ocean' -- default, palenight, ocean, lighter, darker, default-community, palenight-community, ocean-community, lighter-community, darker-community
-vim.g.nvim_tree_git_hl = 1
-vim.g.nvim_tree_highlight_opened_files = 1
-vim.g.sonokai_enable_italic = 1
-vim.g.sonokai_style = 'atlantis' -- default, atlantis, andromeda, shusia, maia, espresso
-vim.g.vim_markdown_conceal = 0
-vim.g.vim_markdown_conceal_code_blocks = 0
-vim.g.coc_global_extensions = {
-  'coc-emmet',
-  'coc-go',
-  'coc-inline-jest',
-  'coc-json',
-  'coc-pairs',
-  'coc-phpls',
-  'coc-prettier',
-  'coc-snippets',
-  'coc-tsserver',
-  'coc-yank',
-  'coc-rust-analyzer'
-}
-
-require('bufferline').setup({
-  options = {
-    numbers = function(opts)
-      return string.format('%s', opts.id)
-    end,
-    show_buffer_close_icons = false,
-    separator_style = "slant",
-    diagnostics = "coc",
-  }
-})
-
-require('lualine').setup({ options = { theme = 'material' }})
-require('nvim-tree').setup({
-  actions = {
-    open_file = {
-      quit_on_open = true
-    }
-  }
-})
-require'nvim-treesitter.configs'.setup {
-  matchup = {
-    enable = true,              -- mandatory, false will disable the whole extension
-  },
-}
+require('coc')
+require('settings')
+require('keymaps')
+require('themes')
 EOF
 
 if !exists('g:vscode')
@@ -179,89 +86,17 @@ let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
 let &t_EI = "\<Esc>]50;CursorShape=3\x7"
 
-" ===========
-" KEYBINDINGS
-" ===========
-
 if exists('g:vscode')
-  " navigate tabs
-  nmap <silent> t :call VSCodeCall('workbench.action.nextEditor')<CR>
-  nmap <silent> T :call VSCodeCall('workbench.action.previousEditor')<CR>
-  " open diagnostic window
-  nnoremap <C-d> :call VSCodeCall('workbench.panel.markers.view.focus')<CR>
-  " navigate markers
-  nmap <silent> <Leader>e :call VSCodeCall('editor.action.marker.next')<CR>
-  nmap <silent> <Leader>E :call VSCodeCall('editor.action.marker.prev')<CR>
-  " navigate code
-  nmap <silent> gd :call VSCodeCall('editor.action.revealDefinition')<CR>
-  nmap <silent> gy :call VSCodeCall('editor.action.goToTypeDefinition')<CR>
-  nmap <silent> gY :call VSCodeCall('editor.action.peekTypeDefinition')<CR>
-  nmap <silent> gi :call VSCodeCall('editor.action.goToImplementation')<CR>
-  nmap <silent> gI :call VSCodeCall('editor.action.peekImplementation')<CR>
-  nmap <silent> gr :call VSCodeCall('editor.action.goToReferences')<CR>
 else
-  " create new tab (use buffers)
-  nnoremap <C-t> :tabnew<CR>
-  " next/previous tab
-  nnoremap t :bnext<CR>
-  nnoremap T :bprev<CR>
-  " go to tab to the left
-  nnoremap <silent> <A-Left> :tabm -1<CR>
-  " go to tab to the right
-  nnoremap <silent> <A-Right> :tabm +1<CR>
-  " clear last search highlight
-  nnoremap <C-l> :noh<CR>
   " Spacing for new code block
-  inoremap <C-Return> <CR><CR><C-o>k<Tab>
-  " Use ctrl-[hjkl] to select the active split!
-  nmap <silent> <c-k> :wincmd k<CR>
-  nmap <silent> <c-j> :wincmd j<CR>
-  nmap <silent> <c-h> :wincmd h<CR>
+  "inoremap <C-Return> <CR><CR><C-o>k<Tab>
   " toggle NerdCommenter
-  map <C-_> <plug>NERDCommenterToggle
-  " find file
-  nnoremap <C-p> :FZF<CR>
-  " find string in all files
-  nnoremap <C-F> :Ag<CR>
-  " find tags
-  nnoremap <C-i> :BTags<CR>
-  " view git status
-  nnoremap <C-g> :GFiles?<CR>
-  " view git history of buffer
-  nnoremap <leader>gh :BCommits<CR>
-  " view buffers
-  nnoremap <C-b> :Buffers<CR>
-  " open file tree
-  nnoremap <C-n> :NvimTreeToggle<CR>
-  " find file in file tree
-  nmap <leader>ff :NvimTreeFindFile<CR>
-  nmap <leader>nn :NvimTreeFindFile<CR>
-  " mirror files in file tree
-  nmap <leader>fo :NvimTreeFocus<CR>
-  " tagbar
-  nmap <F8> :TagbarToggle<CR>
+  "map <C-_> <plug>NERDCommenterToggle
   if has('nvim')
     " use <c-space> to trigger completion
     inoremap <silent><expr> <c-space> coc#refresh()
-    " apply codeAction to the current line
-    nmap <leader>ac  <Plug>(coc-codeaction)
-    " quick fix the current line
-    nmap <leader>qf  <Plug>(coc-fix-current)
-    " open diagnostic window
-    nnoremap <C-d> :CocDiagnostics<CR>
-    " navigate markers
-    nmap <silent> <Leader>e <Plug>(coc-diagnostic-next)
-    nmap <silent> <Leader>E <Plug>(coc-diagnostic-prev)
-    " navigate code
-    nmap <silent> gd <Plug>(coc-definition)
-    nmap <silent> gy <Plug>(coc-type-definition)
-    nmap <silent> gi <Plug>(coc-implementation)
-    nmap <silent> gr <Plug>(coc-references)
     " rename current word
-    nmap <F2> <Plug>(coc-rename)
-    " format with prettier
-    vmap <leader>pr  <Plug>(coc-format-selected)
-    nmap <leader>pr  <Plug>(coc-format-selected)
+    "nmap <F2> <Plug>(coc-rename)
     " highlight the symbol and its references when holding the cursor.
     " autocmd CursorHold * silent call CocActionAsync('highlight')
     " format file
@@ -273,38 +108,19 @@ else
   endif
 endif
 
-" use jk to escape
-imap jk <Esc>
-" use H to navigate to start of text
-nnoremap H ^
-" use L to navigate to end of line
-nnoremap L g_
-" go to next instance of two characters
-map <leader>f <Plug>Sneak_s
-" go to previous instance of two characters
-map <leader>F <Plug>Sneak_S
-
 " MINIYANK
-map p <Plug>(miniyank-autoput)
-map P <Plug>(miniyank-autoPut)
-" directly put the most recent item in the shared history
-map <leader>p <Plug>(miniyank-startput)
-map <leader>P <Plug>(miniyank-startPut)
-" right after a put, use cycle to go through history
-map <leader>n <Plug>(miniyank-cycle)
-map <leader>N <Plug>(miniyank-cycleback)
-" change type
-map <leader>c <Plug>(miniyank-tochar)
-map <leader>l <Plug>(miniyank-toline)
-map <leader>b <Plug>(miniyank-toblock)
-
-" easymotion
-" Turn on case-insensitive feature
-let g:EasyMotion_smartcase = 1
-
-" JK motions: Line motions
-map <Leader><Leader>j <Plug>(easymotion-j)
-map <Leader><Leader>k <Plug>(easymotion-k)
+"map p <Plug>(miniyank-autoput)
+"map P <Plug>(miniyank-autoPut)
+"" directly put the most recent item in the shared history
+"map <leader>p <Plug>(miniyank-startput)
+"map <leader>P <Plug>(miniyank-startPut)
+"" right after a put, use cycle to go through history
+"map <leader>n <Plug>(miniyank-cycle)
+"map <leader>N <Plug>(miniyank-cycleback)
+"" change type
+"map <leader>c <Plug>(miniyank-tochar)
+"map <leader>l <Plug>(miniyank-toline)
+"map <leader>b <Plug>(miniyank-toblock)
 
 " use K to show documentation in preview window
 function! s:show_documentation()

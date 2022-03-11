@@ -227,7 +227,7 @@ alias oni2="${HOME}/AppImages/Onivim2-x86_64-master.AppImage"
 JIRA_CONFIG="~/.jira-cli/config.json"
 AMJERM_CONFIG="~/repos/amjerm/config-files"
 
-alias evim="$EDITOR $AMJERM_CONFIG/vim/.vimrc"
+alias evim="$EDITOR ~/.config/nvim"
 alias etmux="$EDITOR $AMJERM_CONFIG/.tmux.conf"
 alias ezsh="$EDITOR $AMJERM_CONFIG/.zshrc"
 alias ewez="$EDITOR $AMJERM_CONFIG/wezterm.lua"
