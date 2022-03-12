@@ -45,7 +45,7 @@ else
   })
 
   -- lualine
-  require('lualine').setup({ options = { theme = 'material' }})
+  require('lualine').setup({ options = { theme = 'material', section_separators = { left = '', right = '' }, }})
 
   -- nvim-tree
   vim.g.nvim_tree_git_hl = 1 -- highlight git changed files

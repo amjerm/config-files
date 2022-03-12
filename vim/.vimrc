@@ -27,9 +27,13 @@ call plug#begin('~/.vim/plugged')
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'akinsho/bufferline.nvim'
     Plug 'nvim-lualine/lualine.nvim'
+    "Plug 'vim-airline/vim-airline'
+    "Plug 'vim-airline/vim-airline-themes'
+    "Plug 'itchyny/lightline.vim'
 
     " file tree
     Plug 'kyazdani42/nvim-tree.lua'
+    Plug 'liuchengxu/vista.vim'
 
     " syntax highlighting / snippets / formatting
     Plug 'HerringtonDarkholme/yats.vim' " typescript highlighting
@@ -54,13 +58,14 @@ call plug#begin('~/.vim/plugged')
 
     " actions/utilities
     Plug 'neoclide/coc.nvim', {'branch': 'release'} " code completion
+    Plug 'github/copilot.vim'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fuzzy finder
+    Plug 'mileszs/ack.vim'
+    Plug 'junegunn/fzf.vim'
   endif
 
   " actions / utilities
   Plug 'bfredl/nvim-miniyank'
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } " fuzzy finder
-  Plug 'mileszs/ack.vim'
-  Plug 'junegunn/fzf.vim'
   Plug 'justinmk/vim-sneak'
   Plug 'easymotion/vim-easymotion'
   Plug 'tpope/vim-repeat'
@@ -70,6 +75,14 @@ call plug#begin('~/.vim/plugged')
   Plug 'andymass/vim-matchup'
 call plug#end()
 
+if (has('termguicolors'))
+  set termguicolors
+endif
+
+if !exists('g:vscode')
+  colorscheme material
+endif
+
 lua <<EOF
 require('coc')
 require('settings')
@@ -77,9 +90,17 @@ require('keymaps')
 require('themes')
 EOF
 
-if !exists('g:vscode')
-  colorscheme material
-endif
+"let g:lightline = {
+      "\ 'colorscheme': 'material',
+      "\ 'active': {
+      "\   'left': [ [ 'mode', 'paste' ],
+      "\             [ 'readonly', 'filename', 'modified', 'method' ] ]
+      "\ },
+      "\ 'component_function': {
+      "\   'method': 'NearestMethodOrFunction'
+      "\ },
+      "\ }
+
 
 " cursor settings
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
@@ -91,7 +112,7 @@ else
   " Spacing for new code block
   "inoremap <C-Return> <CR><CR><C-o>k<Tab>
   " toggle NerdCommenter
-  "map <C-_> <plug>NERDCommenterToggle
+  map <C-_> <plug>NERDCommenterToggle
   if has('nvim')
     " use <c-space> to trigger completion
     inoremap <silent><expr> <c-space> coc#refresh()

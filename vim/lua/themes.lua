@@ -25,3 +25,6 @@ vim.g.material_theme_style = 'ocean' -- default, palenight, ocean, lighter, dark
 -- sonokai
 vim.g.sonokai_enable_italic = 1
 vim.g.sonokai_style = 'atlantis' -- default, atlantis, andromeda, shusia, maia, espresso
+
+-- AIRLINE
+ vim.g.airline_theme = 'material'

@@ -77,4 +77,7 @@ else
   -- format with prettier
   map('v', '<Leader>pr', '<Plug>(coc-format-selected)', {noremap = false})
   map('n', '<Leader>pr', '<Plug>(coc-format-selected)', {noremap = false})
+  -- toggle tagbar
+  map('n', '<Leader>t', ':Vista coc<CR>', {noremap = false})
+  map('n', '<Leader>T', ':Vista!<CR>', {noremap = false})
 end
