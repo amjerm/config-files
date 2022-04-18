@@ -3,6 +3,9 @@ vim.g.indentLine_char = '.'
 vim.g.mapleader = ' '
 vim.g.vim_markdown_conceal = 0
 vim.g.vim_markdown_conceal_code_blocks = 0
+vim.g['&t_SI'] = "<Esc>]50;CursorShape=1x7"
+vim.g['&t_SR'] = "<Esc>]50;CursorShape=2x7"
+vim.g['&t_EI'] = "<Esc>]50;CursorShape=3x7"
 
 -- OPTIONS
 vim.o.background = 'dark'
@@ -44,8 +47,91 @@ else
     }
   })
 
+  -- dap ui
+  require("dapui").setup()
+
+  -- dap virtual text
+  require("nvim-dap-virtual-text").setup()
+
+  -- fzf
+  vim.env.FZF_DEFAULT_OPTS = "--layout=reverse"
+
+  -- github copilot
+  vim.g.copilot_no_tab_map = 1
+
   -- lualine
-  require('lualine').setup({ options = { theme = 'material', section_separators = { left = '', right = '' }, }})
+  local function hello()
+    return [[hello world]]
+  end
+  require('lualine').setup({
+    options = {
+      --theme = 'material',
+      section_separators = { left = '', right = '' },
+      sections = {
+        lualine_a = {hello}
+      }
+    },
+  })
+
+  -- nvim-dap
+  local dap = require('dap')
+  dap.adapters.chrome = {
+    type = "executable",
+    command = "node",
+    args = {os.getenv("HOME") .. "/path/to/vscode-chrome-debug/out/src/chromeDebug.js"} -- TODO adjust
+  }
+
+  dap.configurations.javascript = {
+      {
+          type = "chrome",
+          request = "attach",
+          program = "${file}",
+          cwd = vim.fn.getcwd(),
+          sourceMaps = true,
+          protocol = "inspector",
+          port = 9222,
+          webRoot = "${workspaceFolder}"
+      }
+  }
+
+  dap.configurations.typescript = {
+      {
+          type = "chrome",
+          request = "attach",
+          program = "${file}",
+          cwd = vim.fn.getcwd(),
+          sourceMaps = true,
+          protocol = "inspector",
+          port = 9222,
+          webRoot = "${workspaceFolder}"
+      }
+  }
+
+  dap.configurations.javascriptreact = {
+      {
+          type = "chrome",
+          request = "attach",
+          program = "${file}",
+          cwd = vim.fn.getcwd(),
+          sourceMaps = true,
+          protocol = "inspector",
+          port = 9222,
+          webRoot = "${workspaceFolder}"
+      }
+  }
+
+  dap.configurations.typescriptreact = {
+      {
+          type = "chrome",
+          request = "attach",
+          program = "${file}",
+          cwd = vim.fn.getcwd(),
+          sourceMaps = true,
+          protocol = "inspector",
+          port = 9222,
+          webRoot = "${workspaceFolder}"
+      }
+  }
 
   -- nvim-tree
   vim.g.nvim_tree_git_hl = 1 -- highlight git changed files
@@ -70,3 +156,35 @@ end
 -- easymotion
 vim.g.EasyMotion_smartcase = 1 -- case insensitive
 
+-- vimspector
+--vim.g.vimspector_enable_mappings = 'HUMAN'
+
+-- vim test
+vim.g['test#javascript#jest#options'] = "--color=always"
+
+-- vista
+--vim.cmd [[
+  --function! NearestMethodOrFunction() abort
+  --return get(b:, 'vista_nearest_method_or_function', '')
+  --endfunction
+--]]
+
+--vim.o.statusline = vim.o.statusline .. "%{NearestMethodOrFunction()}"
+
+--vim.cmd[[
+  --autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+--]]
+
+--" MINIYANK
+--"map p <Plug>(miniyank-autoput)
+--"map P <Plug>(miniyank-autoPut)
+--"" directly put the most recent item in the shared history
+--"map <leader>p <Plug>(miniyank-startput)
+--"map <leader>P <Plug>(miniyank-startPut)
+--"" right after a put, use cycle to go through history
+--"map <leader>n <Plug>(miniyank-cycle)
+--"map <leader>N <Plug>(miniyank-cycleback)
+--"" change type
+--"map <leader>c <Plug>(miniyank-tochar)
+--"map <leader>l <Plug>(miniyank-toline)
+--"map <leader>b <Plug>(miniyank-toblock)

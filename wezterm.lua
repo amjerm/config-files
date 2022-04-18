@@ -24,7 +24,7 @@ end);
 
 return {
   color_scheme = color_scheme,
-  font = wezterm.font("Dank Mono"),
+  font = wezterm.font_with_fallback({ "Dank Mono", "RobotoMono Nerd Font Mono"}),
   font_size = 13,
   initial_rows = 40,
   initial_cols = 105

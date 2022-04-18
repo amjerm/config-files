@@ -27,9 +27,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'akinsho/bufferline.nvim'
     Plug 'nvim-lualine/lualine.nvim'
-    "Plug 'vim-airline/vim-airline'
-    "Plug 'vim-airline/vim-airline-themes'
-    "Plug 'itchyny/lightline.vim'
 
     " file tree
     Plug 'kyazdani42/nvim-tree.lua'
@@ -51,7 +48,15 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-fugitive'
 
     " debugger
-    Plug 'vim-vdebug/vdebug'
+    Plug 'mfussenegger/nvim-dap'
+    Plug 'Pocco81/DAPInstall.nvim'
+    Plug 'rcarriga/nvim-dap-ui'
+    Plug 'theHamsta/nvim-dap-virtual-text'
+    "Plug 'puremourning/vimspector'
+
+    "testing
+    Plug 'vim-test/vim-test'
+    Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 
     " documentation
     Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
@@ -66,7 +71,7 @@ call plug#begin('~/.vim/plugged')
 
   " actions / utilities
   Plug 'bfredl/nvim-miniyank'
-  Plug 'justinmk/vim-sneak'
+  "Plug 'justinmk/vim-sneak'
   Plug 'easymotion/vim-easymotion'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-abolish'
@@ -89,59 +94,6 @@ require('settings')
 require('keymaps')
 require('themes')
 EOF
-
-"let g:lightline = {
-      "\ 'colorscheme': 'material',
-      "\ 'active': {
-      "\   'left': [ [ 'mode', 'paste' ],
-      "\             [ 'readonly', 'filename', 'modified', 'method' ] ]
-      "\ },
-      "\ 'component_function': {
-      "\   'method': 'NearestMethodOrFunction'
-      "\ },
-      "\ }
-
-
-" cursor settings
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-let &t_EI = "\<Esc>]50;CursorShape=3\x7"
-
-if exists('g:vscode')
-else
-  " Spacing for new code block
-  "inoremap <C-Return> <CR><CR><C-o>k<Tab>
-  " toggle NerdCommenter
-  map <C-_> <plug>NERDCommenterToggle
-  if has('nvim')
-    " use <c-space> to trigger completion
-    inoremap <silent><expr> <c-space> coc#refresh()
-    " rename current word
-    "nmap <F2> <Plug>(coc-rename)
-    " highlight the symbol and its references when holding the cursor.
-    " autocmd CursorHold * silent call CocActionAsync('highlight')
-    " format file
-    command! -nargs=0 Prettier :CocCommand prettier.formatFile
-    " Make <CR> auto-select the first completion item and notify coc.nvim to
-    " format on enter, <cr> could be remapped by other vim plugin
-    inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                                  \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-  endif
-endif
-
-" MINIYANK
-"map p <Plug>(miniyank-autoput)
-"map P <Plug>(miniyank-autoPut)
-"" directly put the most recent item in the shared history
-"map <leader>p <Plug>(miniyank-startput)
-"map <leader>P <Plug>(miniyank-startPut)
-"" right after a put, use cycle to go through history
-"map <leader>n <Plug>(miniyank-cycle)
-"map <leader>N <Plug>(miniyank-cycleback)
-"" change type
-"map <leader>c <Plug>(miniyank-tochar)
-"map <leader>l <Plug>(miniyank-toline)
-"map <leader>b <Plug>(miniyank-toblock)
 
 " use K to show documentation in preview window
 function! s:show_documentation()
