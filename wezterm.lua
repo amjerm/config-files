@@ -1,6 +1,42 @@
 local wezterm = require 'wezterm';
 
-local color_scheme_pool = { 'Andromeda', 'Argonaut', 'Arthur', 'Aurora', 'Belafonte Night', 'BirdsOfParadise', 'BlulocoDark', 'Chester', 'Ciapre', 'Cobalt2', 'Darkside', 'Desert', 'DimmedMonokai', 'Doom Peacock', 'DoomOne', 'DotGov', 'Earthsong', 'Elemental', 'Elementary', 'Espresso Libre', 'Espresso', 'Fahrenheit', 'Fideloper', 'Firewatch', 'ForestBlue', 'FunForrest', 'Galaxy', 'Galizur', 'GitHub Dark', 'Glacier', 'Grape', 'Gruvbox Dark', 'Guezwhoz', 'Hacktober', 'Highway', 'Hivacruz', 'Hopscotch.256', 'Hybrid', 'IC_Green_PPL', 'IC_Orange_PPL', 'Jellybeans', 'JetBrains Darcula', 'Kibble', 'Kolorit', 'Konsolas', 'Laser', 'Later This Evening', 'LiquidCarbon', 'LiquidCarbonTransparent', 'Mariana', 'MaterialDark', 'MaterialDarker', 'MaterialOcean', 'Mathias', 'Medallion', 'Mirage', 'Misterioso', 'Molokai', 'MonaLisa', 'Monokai Soda', 'Monokai Vivid', 'MonokaiRemastered', 'N0tch2k', 'Neutron', 'NightLion v2', 'Nocturnal Winter', 'Obsidian', 'OceanicMaterial', 'Ollie', 'OneHalfDark', 'Operator Mono Dark', 'Overnight Slumber', 'PaleNightHC', 'Pandora', 'Paraiso Dark', 'PaulMillr', 'PencilDark', 'Pnevma', 'Popping and Locking', 'Rapture', 'Raycast_Dark', 'Red Planet', 'Relaxed', 'Rouge 2', 'Ryuuko', 'SeaShells', 'Seafoam Pastel', 'Seti', 'Shaman', 'Slate', 'SleepyHollow', 'Smyck', 'Snazzy', 'SoftServer', 'Solarized Dark Higher Contrast', 'SpaceGray Eighties Dull', 'SpaceGray Eighties', 'Spacedust', 'Subliminal', 'Thayer Bright', 'Tinacious Design (Dark)', 'Tomorrow Night Burns', 'Tomorrow Night Eighties', 'Tomorrow Night', 'Treehouse', 'Twilight', 'Ubuntu', 'Violet Dark', 'WildCherry', 'ayu', 'cyberpunk', 'deep', 'iceberg-dark', 'idea', 'idleToes', 'jubi', 'lovelace', 'matrix', 'midnight-in-mojave', 'nord', 'synthwave', 'synthwave-everything' }
+local color_scheme_pool = {
+  'Aurora',
+  'Fahrenheit',
+  'Fideloper',
+  'Firewatch',
+  'IC_Orange_PPL',
+  'MonaLisa',
+  'SleepyHollow',
+  'Spacedust',
+  'Subliminal',
+  'Tomorrow Night Burns',
+  'ayu',
+  'jubi',
+  'SeaShells',
+  'Seafoam Pastel',
+  'Gruvbox Dark',
+  'MaterialOcean',
+  'Twilight',
+  'ForestBlue',
+  'Shaman',
+  'nord',
+  'Grape',
+  'Tinacious Design (Dark)',
+  'iceberg-dark',
+  'matrix',
+  'GitHub Dark',
+  'JetBrains Darcula',
+  'Thayer Bright',
+  'BlulocoDark',
+  'DoomOne',
+  'Slate',
+  'Tomorrow Night Eighties',
+  'Tomorrow Night',
+  'Earthsong',
+  'Espresso Libre',
+  'FunForrest',
+}
 
 math.randomseed( os.time() )
 local color_scheme_index = math.random(#(color_scheme_pool))
@@ -18,14 +54,14 @@ wezterm.on("window-config-reloaded", function(window, pane)
     -- {Attribute={Italic=true}},
     {Attribute={Intensity="Half"}},
     -- {Text=date.." | "..window:effective_config().color_scheme},
-    {Text=window:effective_config().color_scheme},
+    {Text=window:effective_config().color_scheme.."     "},
   }));
 end);
 
 return {
   color_scheme = color_scheme,
   font = wezterm.font_with_fallback({ "Dank Mono", "RobotoMono Nerd Font Mono"}),
-  font_size = 13,
+  font_size = 16,
   initial_rows = 40,
   initial_cols = 105
 }
