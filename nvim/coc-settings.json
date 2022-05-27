@@ -1,0 +1,16 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "php", "rust", "vim", "lua", "json", "sql"],
+  "intelephense.licenceKey": "00X4DEE3J8RY9D5",
+  "languageserver": {
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
+    }
+    //"sql": {
+      //"command": "sql-language-server",
+      //"args": ["up", "--method", "stdio"],
+      //"filetypes": ["sql", "mysql"]
+    //}
+  }
+}
