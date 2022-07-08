@@ -1,7 +1,7 @@
 local map = vim.api.nvim_set_keymap
 
 -- exit insert mode with 'jk'
-map('i', 'jk', '<Esc>', {noremap = false})
+--map('i', 'jk', '<Esc>', {noremap = false})
 
 -- use H to navigate to start of text
 map('n', 'H', '^', {noremap = true})
@@ -57,9 +57,6 @@ else
   map('n', '<C-f>', ':Ag<CR>', {noremap = true})
   map('n', '<Leader>ag', ':Ag<CR>', {noremap = true})
   map('n', '<Leader>gg', ':Ag<CR>', {noremap = true})
-  -- view git status
-  map('n', '<C-g>', ':GFiles?<CR>', {noremap = true})
-  map('n', '<Leader>gf', ':GFiles?<CR>', {noremap = true})
   -- view buffers
   map('n', '<C-b>', ':Buffers<CR>', {noremap = true})
   map('n', '<Leader>bf', ':Buffers<CR>', {noremap = true})
@@ -67,8 +64,16 @@ else
   map('n', '<C-n>', ':NvimTreeToggle<CR>', {noremap = true})
   -- open diagnostic window
   map('n', '<C-d>', ':CocDiagnostics<CR>', {noremap = true})
-  -- view git history of buffer
-  map('n', '<Leader>gh', ':BCommits<CR>', {noremap = true})
+  -- git
+  map('n', '<C-g>', ':GFiles?<CR>', {noremap = true})
+  map('n', '<Leader>gf', ':GFiles?<CR>', {noremap = true})
+  map('n', '<Leader>gb', ':Git blame<CR>', {noremap = true})
+  map('n', '<Leader>ghb', ':BCommits<CR>', {noremap = true})
+  map('n', '<Leader>gd', ':Gvdiffsplit!<CR>', {noremap = true})
+  map('n', '<Leader>gtt', ':diffget //2<CR>', {noremap = true})
+  map('n', '<Leader>gtm', ':diffget //3<CR>', {noremap = true})
+  map('n', '<Leader>gn', ']c', {noremap = true})
+  map('n', '<Leader>gp', '[c', {noremap = true})
   -- change color theme
   map('n', '<Leader>co', ':Colors<CR>', {noremap = true})
   -- find file in file tree
@@ -86,10 +91,10 @@ else
   -- quick fix the current line
   map('n', '<Leader>cf', '<Plug>(coc-fix-current)', {noremap = false})
   -- navigate code
-  map('n', 'gd', '<Plug>(coc-definition)', {noremap = false})
-  map('n', 'gt', '<Plug>(coc-type-definition)', {noremap = false})
-  map('n', 'gi', '<Plug>(coc-implementation)', {noremap = false})
-  map('n', 'gr', '<Plug>(coc-references)', {noremap = false})
+  map('n', '<Leader>jd', '<Plug>(coc-definition)', {noremap = false})
+  map('n', '<Leader>jt', '<Plug>(coc-type-definition)', {noremap = false})
+  map('n', '<Leader>ji', '<Plug>(coc-implementation)', {noremap = false})
+  map('n', '<Leader>jr', '<Plug>(coc-references)', {noremap = false})
   -- format with prettier
   map('v', '<Leader>pr', '<Plug>(coc-format-selected)', {noremap = false})
   map('n', '<Leader>pr', '<Plug>(coc-format-selected)', {noremap = false})
@@ -97,7 +102,7 @@ else
   map('n', '<Leader>mm', ':Vista coc<CR>', {noremap = false})
   map('n', '<Leader>mt', ':Vista!<CR>', {noremap = false})
   map('n', '<C-t>', ':Vista finder coc<CR>', {noremap = false})
-  -- accept copliot suggestion with leader + cp
+  -- accept copliot suggestion
   map('i', '<C-c>', 'copilot#Accept("<CR>")', {noremap = false, expr = true, silent = true})
   -- navigate auto complete
   map('i', '<C-j>', '<C-n>', {noremap = true})
@@ -113,7 +118,12 @@ else
   -- tests
   map('n', '<Leader>ta', ':Ultest<CR>', {noremap = false})
   map('n', '<Leader>tn', ':UltestNearest<CR>', {noremap = false})
+  map('n', '<Leader>tx', ':lua require("neotest").run.run()<CR>', {noremap = false})
   map('n', '<Leader>td', ':UltestDebug<CR>', {noremap = false})
   map('n', '<Leader>ts', ':UltestSummary<CR>', {noremap = false})
   map('n', '<Leader>tc', ':UltestClear<CR>', {noremap = false})
+  -- visual mode
+  map('n', '<Leader>vu', ':noh<CR>', {noremap = false})
+  -- vim-surround
+  map('n', '<Leader>vs', 'cs', {noremap = false})
 end

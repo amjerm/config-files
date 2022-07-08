@@ -39,7 +39,7 @@ call plug#begin('~/.vim/plugged')
 
     " syntax highlighting / snippets / formatting
     Plug 'HerringtonDarkholme/yats.vim' " typescript highlighting
-    Plug 'mattn/emmet-vim' " emmet
+    "Plug 'mattn/emmet-vim' " emmet
     Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
     Plug 'preservim/nerdcommenter' " comment shortcuts
     Plug 'sheerun/vim-polyglot'
@@ -61,7 +61,12 @@ call plug#begin('~/.vim/plugged')
 
     "testing
     Plug 'vim-test/vim-test'
-    Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
+    Plug 'rcarriga/vim-ultest', { 'do': ':updateremoteplugins' }
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'antoinemadec/FixCursorHold.nvim'
+    Plug 'rcarriga/neotest'
+    Plug 'rcarriga/neotest-vim-test'
+    Plug 'haydenmeade/neotest-jest'
 
     " documentation
     Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
@@ -115,3 +120,5 @@ function! s:show_documentation()
   endif
 endfunction
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+execute pathogen#infect()

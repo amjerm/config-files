@@ -65,7 +65,7 @@ else
       theme = 'material',
       section_separators = { left = '', right = '' },
     },
-    sections = {
+    --sections = {
       -- default values
       --lualine_a = {'mode'},
       --lualine_b = {'branch', 'diff', 'diagnostics'},
@@ -73,8 +73,19 @@ else
       --lualine_x = {'encoding', 'fileformat', 'filetype'},
       --lualine_y = {'progress'},
       --lualine_z = {'location'}
-      lualine_c = {'%.40F'},
-    }
+
+      --lualine_c = {'%.40F'},
+    --}
+  })
+
+  -- neotest
+  require("neotest").setup({
+    adapters = {
+      require("neotest-jest"),
+      require("neotest-vim-test")({
+        ignore_file_types = { "python", "vim", "lua" },
+      }),
+    },
   })
 
   -- nvim-dap
@@ -164,7 +175,8 @@ vim.g.EasyMotion_smartcase = 1 -- case insensitive
 --vim.g.vimspector_enable_mappings = 'HUMAN'
 
 -- vim test
-vim.g['test#javascript#jest#options'] = "--color=always"
+--vim.g['test#javascript#jest#options'] = "--color=always"
+vim.g.ultest_use_pty = 1
 
 -- vista
 --vim.cmd [[
